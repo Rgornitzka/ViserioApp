@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+#cooldownBar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+

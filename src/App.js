@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from 'react';
+import SidebarWrapper from './components/Sidebar';
+import useStore from './store';
 
 function App() {
+  const { abilities } = useStore();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          hello world
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <SidebarWrapper abilities={abilities} />
     </div>
   );
 }
+
 
 export default App;
