@@ -1,0 +1,28 @@
+/* .timeline {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+ */
+/* Timeline.css */
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .timeline-container {
+    flex: 2;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border: 1px solid #dee2e6;
+    height: 100%;
+  }
+  
+  .timeline-panel {
+    position: relative;
+    height: 1000px;
+    border: 1px solid #dee2e6;
+    background-color: #ff0000;
+  }
+  

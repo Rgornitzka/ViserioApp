@@ -1,0 +1,7 @@
+.timeIndicator {
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background-color: black; /* or your preferred color */
+    top: 0;
+  }

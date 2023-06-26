@@ -13,16 +13,6 @@ class Ability {
       return this;
     }
   
-    addCooldown(cd) {
-      this.cooldown = this.cooldown + cd;
-      return this;
-    }
-  
-    multiplyCooldown(cd) {
-      this.cooldown = this.cooldown * cd;
-      return this;
-    }
-  
     setIcon(icon) {
       this.icon = icon;
       return this;
@@ -49,7 +39,5 @@ class Ability {
     }
   }
 
-  
-  
   export default Ability;
   
