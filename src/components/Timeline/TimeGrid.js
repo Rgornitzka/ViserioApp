@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import useStore from "../../store";
 import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
+import TimeIndicatorLabel from './TimeIndicatorLabel';
 
 function TimeGrid({ panelRef }) {
   const duration = useStore(state => state.duration);
   const [leftPosition, setLeftPosition] = useState(0);
+  const [durationPosition, setDurationPosition] = useState(0);
 
   useEffect(() => {
     if (panelRef.current) {
@@ -17,6 +19,8 @@ function TimeGrid({ panelRef }) {
   const handleMouseMove = (e) => {
     const rect = panelRef.current.getBoundingClientRect();
     setLeftPosition(e.clientX - rect.left);
+    const positionPercentage = (e.clientX - rect.left) / rect.width;
+    setDurationPosition(positionPercentage * duration);
   }
 
   return (
@@ -24,14 +28,13 @@ function TimeGrid({ panelRef }) {
       {getCastTimes(10, duration).map((castTime, index) => {
         const isMinute = index % 6 === 0;
         const isHalfMinute = !isMinute && index % 3 === 0;
-        const isTenSeconds = !isMinute && !isHalfMinute;
         let gridLineColor;
         if (isMinute) {
-          gridLineColor = "#3a4652";
+          gridLineColor = "#4f4f4f";
         } else if (isHalfMinute) {
-          gridLineColor = "#2d313b";
-        } else if (isTenSeconds) {
-          gridLineColor = "#222c36";
+          gridLineColor = "#3f3f3f";
+        } else {
+          gridLineColor = "#2f2f2f";
         }
         return (
           <div
@@ -44,7 +47,9 @@ function TimeGrid({ panelRef }) {
           />
         );
       })}
-      <TimeIndicatorBar leftPosition={leftPosition} />
+      <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
+      <TimeIndicatorLabel className="timeIndicatorLabelTop" leftPosition={leftPosition} durationPosition={durationPosition} />
+      <TimeIndicatorLabel className="timeIndicatorLabelBottom" leftPosition={leftPosition} durationPosition={durationPosition} /> 
     </div>
   );
 }

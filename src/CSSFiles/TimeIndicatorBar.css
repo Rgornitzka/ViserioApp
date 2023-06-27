@@ -5,3 +5,17 @@
     background-color: black; /* or your preferred color */
     top: 0;
   }
+
+  .timeIndicatorBar {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    background-color: #ff0000;
+  }
+  
+  .timeIndicatorContainer {
+    position: absolute;
+    width: 1px;
+    height: 100%;
+  }
+  
