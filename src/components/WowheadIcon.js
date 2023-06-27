@@ -11,7 +11,6 @@ function WowheadIcon(props) {
       className={className}
       alt = {name}
     />
-    
   )
 }
 
