@@ -1,6 +1,7 @@
 import Ability from './Ability';
 import CLASSES from './Classes';
 
+// Define abilities object
 const abilities = {
   [CLASSES.GENERAL]: [
     new Ability()

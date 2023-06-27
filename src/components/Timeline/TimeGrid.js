@@ -4,18 +4,27 @@ import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
 import TimeIndicatorLabel from './TimeIndicatorLabel';
 
+/**
+ * Component representing a time grid.
+ * @param {Object} panelRef - Reference to the panel element.
+ */
 function TimeGrid({ panelRef }) {
   const duration = useStore(state => state.duration);
   const [leftPosition, setLeftPosition] = useState(0);
   const [durationPosition, setDurationPosition] = useState(0);
 
   useEffect(() => {
+    // Calculate panel width when it's mounted or updated
     if (panelRef.current) {
       const panelWidth = panelRef.current.offsetWidth;
       console.log('panelWidth', panelWidth);
     }
   }, [panelRef]);
 
+  /**
+   * Handle mouse movement on the time grid.
+   * @param {Event} e - Mouse move event object.
+   */
   const handleMouseMove = (e) => {
     const rect = panelRef.current.getBoundingClientRect();
     setLeftPosition(e.clientX - rect.left);
@@ -25,6 +34,7 @@ function TimeGrid({ panelRef }) {
 
   return (
     <div className="timeGrid" onMouseMove={handleMouseMove}>
+      {/* Generate grid lines */}
       {getCastTimes(10, duration).map((castTime, index) => {
         const isMinute = index % 6 === 0;
         const isHalfMinute = !isMinute && index % 3 === 0;
@@ -47,6 +57,7 @@ function TimeGrid({ panelRef }) {
           />
         );
       })}
+      {/* Display time indicator bar and labels */}
       <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
       <TimeIndicatorLabel className="timeIndicatorLabelTop" leftPosition={leftPosition} durationPosition={durationPosition} />
       <TimeIndicatorLabel className="timeIndicatorLabelBottom" leftPosition={leftPosition} durationPosition={durationPosition} /> 
@@ -54,6 +65,12 @@ function TimeGrid({ panelRef }) {
   );
 }
 
+/**
+ * Get an array of cast times based on the given time slice and total time.
+ * @param {number} timeSlice - Time slice value.
+ * @param {number} totalTime - Total time value.
+ * @returns {number[]} - Array of cast times.
+ */
 function getCastTimes(timeSlice, totalTime) {
   const times = [...Array(Math.floor(totalTime / timeSlice) + 1)].map(
     (_, i) => timeSlice * i
