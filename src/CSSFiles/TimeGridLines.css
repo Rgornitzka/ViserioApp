@@ -1,0 +1,26 @@
+.gridLineMinute {
+    background-color: #ffffff1a;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+}
+  
+.gridLineHalfMinute {
+    background-color: #ffffff10;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+.gridLine {
+    background-color: #ffffff09;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 1px;
+}

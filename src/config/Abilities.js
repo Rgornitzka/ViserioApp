@@ -21,6 +21,45 @@ const abilities = {
       .setWowheadLink('https://www.wowhead.com/beta/spell=363534/rewind'),
     // ...additional abilities
   ],
+  [CLASSES.DEATHKNIGHT]: [
+
+  ],
+  [CLASSES.DEMONHUNTER]: [
+
+  ],
+  [CLASSES.DRUID]: [
+
+  ],
+  [CLASSES.EVOKER]: [
+
+  ],
+  [CLASSES.HUNTER]: [
+
+  ],
+  [CLASSES.MAGE]: [
+
+  ],
+  [CLASSES.MONK]: [
+
+  ],
+  [CLASSES.PALADIN]: [
+
+  ],
+  [CLASSES.PRIEST]: [
+
+  ],
+  [CLASSES.ROGUE]: [
+
+  ],
+  [CLASSES.SHAMAN]: [
+
+  ],
+  [CLASSES.WARLOCK]: [
+
+  ],
+  [CLASSES.WARRIOR]: [
+
+  ],
   // ...additional classes
 };
 

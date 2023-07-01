@@ -3,13 +3,15 @@ import useStore from "../../store";
 import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
 import TimeIndicatorLabel from './TimeIndicatorLabel';
+import IconOverlay from './IconOverlay';
+import TimeGridLines from './TimeGridLines';  // Import GridLines component
 
 /**
  * Component representing a time grid.
  * @param {Object} panelRef - Reference to the panel element.
  */
 function TimeGrid({ panelRef }) {
-  const duration = useStore(state => state.duration);
+  const { duration, selectedIcons } = useStore(state => ({ duration: state.duration, selectedIcons: state.selectedIcons })); // Get duration and selected icons from the store
   const [leftPosition, setLeftPosition] = useState(0);
   const [durationPosition, setDurationPosition] = useState(0);
 
@@ -32,50 +34,22 @@ function TimeGrid({ panelRef }) {
     setDurationPosition(positionPercentage * duration);
   }
 
+  const pixelsPerSecond = panelRef.current ? panelRef.current.offsetWidth / duration : 0; // Calculate pixels per second
+
   return (
     <div className="timeGrid" onMouseMove={handleMouseMove}>
-      {/* Generate grid lines */}
-      {getCastTimes(10, duration).map((castTime, index) => {
-        const isMinute = index % 6 === 0;
-        const isHalfMinute = !isMinute && index % 3 === 0;
-        let gridLineColor;
-        if (isMinute) {
-          gridLineColor = "#4f4f4f";
-        } else if (isHalfMinute) {
-          gridLineColor = "#3f3f3f";
-        } else {
-          gridLineColor = "#2f2f2f";
-        }
-        return (
-          <div
-            key={castTime}
-            className="gridLine"
-            style={{ 
-              backgroundColor: gridLineColor,
-              left: `${(castTime / duration) * 100}%` 
-            }}
-          />
-        );
-      })}
+      {/* Render TimeGridLines component */}
+      <TimeGridLines duration={duration} />
+
       {/* Display time indicator bar and labels */}
       <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
       <TimeIndicatorLabel className="timeIndicatorLabelTop" leftPosition={leftPosition} durationPosition={durationPosition} />
       <TimeIndicatorLabel className="timeIndicatorLabelBottom" leftPosition={leftPosition} durationPosition={durationPosition} /> 
+
+      {/* Display selected icons overlay */}
+      <IconOverlay selectedIcons={selectedIcons} pixelsPerSecond={pixelsPerSecond} />
     </div>
   );
-}
-
-/**
- * Get an array of cast times based on the given time slice and total time.
- * @param {number} timeSlice - Time slice value.
- * @param {number} totalTime - Total time value.
- * @returns {number[]} - Array of cast times.
- */
-function getCastTimes(timeSlice, totalTime) {
-  const times = [...Array(Math.floor(totalTime / timeSlice) + 1)].map(
-    (_, i) => timeSlice * i
-  );
-  return times;
 }
 
 export default TimeGrid;

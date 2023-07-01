@@ -17,6 +17,7 @@ class Sidebar extends React.Component {
   addAbility = (ability) => {
     this.props.addAbility(ability);
     console.log('Added ability', ability);
+    console.log('array abilities', this.props);
   }
 
   render() {
@@ -25,6 +26,7 @@ class Sidebar extends React.Component {
       <div className="sidebar">
         {/* Render the WowheadIconList component */}
         <WowheadIconList abilities={abilities} onIconClick={this.addAbility} />
+        
       </div>
     );
   }

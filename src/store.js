@@ -1,12 +1,19 @@
-import {create} from 'zustand'
+import { create } from 'zustand';
 import abilities from './config/Abilities';
 
-const useStore = create(set => ({
+const useStore = create((set) => ({
   abilities,
   duration: 60 * 10,
-  sidebarIcons: [],
   selectedIcons: [],
-  addIcon: (icon) => set(state => ({ sidebarIcons: [...state.sidebarIcons, icon] })),
-}))
+  currentTime: 0,
+  addIcon: (icon) => 
+    set((state) => ({ 
+      selectedIcons: [...state.selectedIcons, { ...icon, time: state.currentTime }],
+    })),
+  setCurrentTime: (time) =>
+    set(() => ({
+      currentTime: time,
+    })),
+}));
 
 export default useStore;
