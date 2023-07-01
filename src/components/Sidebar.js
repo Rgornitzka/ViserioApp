@@ -2,7 +2,8 @@
 import React from 'react';
 import useStore from '../store';
 import NewPlayerInput from './NewPlayerInput';
-import WowheadIcon from './WowheadIcon'; // Import your WowheadIcon component
+import WowheadIcon from './WowheadIcon';
+import '../CSSFiles/Sidebar.css';
 
 function Sidebar() {
   const { players, addAbilityToPlayer } = useStore();

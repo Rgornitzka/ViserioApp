@@ -1,5 +1,6 @@
 import React from 'react';
 import WowheadIcon from '../WowheadIcon';
+import '../../CSSFiles/AbilityRow.css';
 
 function AbilityRow({ abilities, pixelsPerSecond }) {
   // Ensure abilities is an array
