@@ -6,6 +6,7 @@ const useStore = create((set) => ({
   duration: 60 * 10,
   selectedIcons: [],
   currentTime: 0,
+  players: [], // Add players array to your store
   addIcon: (icon) => 
     set((state) => ({ 
       selectedIcons: [...state.selectedIcons, { ...icon, time: state.currentTime }],
@@ -14,6 +15,22 @@ const useStore = create((set) => ({
     set(() => ({
       currentTime: time,
     })),
+  addPlayer: (player) => // Add addPlayer function to your store
+    set((state) => ({
+      players: [...state.players, player],
+    })),
+
+  addAbilityToPlayer: (ability, playerName) => 
+    set((state) => {
+      const updatedPlayers = state.players.map(player => {
+        if (player.name === playerName) {
+          return { ...player, selectedAbilities: [...player.selectedAbilities, { ...ability, time: state.currentTime }] };
+        }
+        return player;
+      });
+
+      return { players: updatedPlayers };
+    }),
 }));
 
 export default useStore;

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../CSSFiles/TimeIndicatorLabel.css';
+//import '../../CSSFiles/TimeIndicatorBar.css';
 
 /**
  * Component representing a time indicator label.
