@@ -8,7 +8,7 @@ import '../../CSSFiles/TimeGridLines.css';
  */
 function TimeGridLines({ duration }) {
   return (
-    <>
+    <React.Fragment>
       {/* Generate grid lines */}
       {getCastTimes(10, duration).map((castTime, index) => {
         const isMinute = index % 6 === 0;
@@ -31,7 +31,7 @@ function TimeGridLines({ duration }) {
           />
         );
       })}
-    </>
+    </React.Fragment>
   );
 }
 
