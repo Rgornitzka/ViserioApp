@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import useStore from '../store';
 import CLASSES from '../config/Classes';
-import abilities from '../config/Abilities'; // Import your abilities
+import abilities from '../config/Abilities'; 
+import '../CSSFiles/NewPlayerInput.css'
 
 function NewPlayerInput() {
   const [name, setName] = useState('');
@@ -22,23 +23,25 @@ function NewPlayerInput() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="player-form">
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Player name"
         required
+        className="player-input"
       />
       <select
         value={playerClass}
         onChange={(e) => setPlayerClass(e.target.value)}
+        className="player-select"
       >
         {Object.values(CLASSES).map((c) => (
           <option key={c} value={c}>{c}</option> // Add key here
         ))}
       </select>
-      <button type="submit">Add Player</button>
+      <button type="submit" className="player-button">Add Player</button>
     </form>
   );
 }

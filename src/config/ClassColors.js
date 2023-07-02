@@ -1,11 +1,11 @@
 // CLASSCOLORS.js
 
 const CLASSCOLORS = {
+  EVERYONE: [192, 192, 192],        // Light Grey
   DEATHKNIGHT: [196, 30, 58],      // Red
   DEMONHUNTER: [163, 48, 201],     // Dark Magenta
   DRUID: [255, 124, 10],           // Orange
   EVOKER: [51, 147, 127],          // Dark Emerald
-  EVERYONE: [51, 147, 127],        // Dark Emerald
   HUNTER: [170, 211, 114],         // Pistachio
   MAGE: [63, 199, 235],            // Light Blue
   MONK: [0, 255, 152],             // Spring Green

@@ -89,6 +89,22 @@ const abilities = {
   ],
   [CLASSES.DRUID]: [
     new Ability()
+    .setCooldown(60)
+    .setDuration()
+    .setName('Convoke the Spirits')
+    .setShortName()
+    .setSpellId(323764)
+    .setIcon('ability_ardenweald_druid')
+    .setWowheadLink('https://www.wowhead.com/spell=323764/convoke-the-spirits#icon:ability_ardenweald_druid'),
+    new Ability()
+    .setCooldown(90)
+    .setDuration()
+    .setName('Flourish')
+    .setShortName()
+    .setSpellId(197721)
+    .setIcon('spell_druid_wildburst')
+    .setWowheadLink('https://www.wowhead.com/spell=197721/flourish'),
+    new Ability()
       .setCooldown(120)
       .setDuration()
       .setName('Tranquility')
@@ -130,22 +146,6 @@ const abilities = {
       .setSpellId(363534)
       .setIcon('ability_evoker_rewind')
       .setWowheadLink('https://www.wowhead.com/beta/spell=363534/rewind'), 
-    new Ability()
-      .setCooldown(90)
-      .setDuration()
-      .setName('Flourish')
-      .setShortName()
-      .setSpellId(197721)
-      .setIcon('spell_druid_wildburst')
-      .setWowheadLink('https://www.wowhead.com/spell=197721/flourish'),
-    new Ability()
-      .setCooldown(60)
-      .setDuration()
-      .setName('Convoke the Spirits')
-      .setShortName()
-      .setSpellId(323764)
-      .setIcon('ability_ardenweald_druid')
-      .setWowheadLink('https://www.wowhead.com/spell=323764/convoke-the-spirits#icon:ability_ardenweald_druid'),
     new Ability()
       .setCooldown(90)
       .setDuration()
