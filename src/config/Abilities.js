@@ -96,7 +96,7 @@ const abilities = {
     .setSpellId(323764)
     .setIcon('ability_ardenweald_druid')
     .setWowheadLink('https://www.wowhead.com/spell=323764/convoke-the-spirits#icon:ability_ardenweald_druid'),
-    new Ability()
+        new Ability()
     .setCooldown(90)
     .setDuration()
     .setName('Flourish')
