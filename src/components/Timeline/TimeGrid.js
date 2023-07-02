@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useStore from "../../store";
 import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
@@ -8,17 +8,17 @@ import AbilityRow from "./AbilityRow";
 import PlayerRow from "./PlayerRow";
 import CLASSCOLORS from '../../config/ClassColors';
 
+// Auxiliary method for generating the RGBA color
+function getRGBAColor(playerClass, alpha = 0.2) {
+  const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; // Get player's class color
+  const [red, green, blue] = playerColour; // Destructure the RGB values
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
+}
+
 function TimeGrid({ panelRef }) {
-  const { duration, selectedIcons, players } = useStore(state => state);
+  const {duration, selectedIcons, players} = useStore(state => state);
   const [leftPosition, setLeftPosition] = useState(0);
   const [durationPosition, setDurationPosition] = useState(0);
-
-  useEffect(() => {
-    if (panelRef.current) {
-      const panelWidth = panelRef.current.offsetWidth;
-      console.log('panelWidth', panelWidth);
-    }
-  }, [panelRef]);
 
   const handleMouseMove = (e) => {
     const rect = panelRef.current.getBoundingClientRect();
@@ -35,9 +35,10 @@ function TimeGrid({ panelRef }) {
       <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
       {players.map((player, index) => {
         const uniqueAbilities = Array.from(new Set(player.selectedAbilities.map(a => a.name)));
+        const rgbaColor = getRGBAColor(player.class); 
 
         return (
-          <div key={index} style={{backgroundColor: `#${CLASSCOLORS[player.class.toUpperCase()]}`}}>
+          <div key={index} style={{backgroundColor: rgbaColor}}>
             <PlayerRow player={player} />
             {uniqueAbilities.map((abilityName, i) => {
               const abilities = player.selectedAbilities.filter(a => a.name === abilityName);

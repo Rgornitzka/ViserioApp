@@ -2,7 +2,7 @@ import React from 'react';
 import WowheadIcon from '../WowheadIcon';
 import '../../CSSFiles/AbilityRow.css';
 
-function AbilityRow({ abilities, pixelsPerSecond }) {
+function AbilityRow({ abilities, pixelsPerSecond }) {  
   // Ensure abilities is an array
   if (!Array.isArray(abilities)) {
     console.error('Abilities is not an array:', abilities);
@@ -24,5 +24,3 @@ function AbilityRow({ abilities, pixelsPerSecond }) {
 }
 
 export default AbilityRow;
-
-

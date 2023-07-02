@@ -9,7 +9,6 @@ import React from "react";
  * @param {Function} props.onClick - Function to handle icon click.
  */
 function WowheadIcon({ name, className, onClick, size}) {
-  console.log(name);
 
   return (
     <img
