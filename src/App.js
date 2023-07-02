@@ -9,7 +9,6 @@ function App() {
 
   return (
     <div className = "container">
-      test
       <SidebarWrapper abilities={abilities} />
       <Timeline />
     </div>
