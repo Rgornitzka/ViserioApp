@@ -4,6 +4,8 @@ import WowheadIcon from './WowheadIcon';
 import useStore from '../store';
 
 /**
+ * REDUNDANT, TODO DELETE
+ * 
  * Component representing a container for the time grid and icon rows.
  */
 function TimeGridContainer() {

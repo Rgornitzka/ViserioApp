@@ -8,7 +8,6 @@ function AbilityRow({ abilities, pixelsPerSecond }) {
     console.error('Abilities is not an array:', abilities);
     return null;
   }
-
   return (
     <div className="abilityRow">
       {abilities.map((ability, index) => (
@@ -16,6 +15,7 @@ function AbilityRow({ abilities, pixelsPerSecond }) {
           key={index}
           name={ability.icon}
           alt={ability.name}
+          size='30px'
           style={{ position: 'absolute', left: ability.time * pixelsPerSecond }}
         />
       ))}
