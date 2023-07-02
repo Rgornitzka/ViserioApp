@@ -1,9 +1,9 @@
 const CLASSES = {
+  EVERYONE: "everyone",
   DEATHKNIGHT: "deathknight",
   DEMONHUNTER: "demonhunter",
   DRUID: "druid",
   EVOKER: "evoker",
-  EVERYONE: "everyone",
   HUNTER: "hunter",
   MAGE: "mage",
   MONK: "monk",

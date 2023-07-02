@@ -1,0 +1,45 @@
+.player-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+    margin-bottom: 0.625rem; /* 10px */
+    padding-left: 1rem;
+    padding-right: 1rem;
+    background-color: #181818;
+  }
+  
+  .player-input, .player-select {
+    height: 1.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.3125rem; /* 5px */
+    border: 0.0625rem solid #ccc; /* 1px */
+  }
+  
+  .player-input:hover {
+    background-color: #ccc;
+  }
+  
+  .player-input {
+    padding-left: 0.25rem;
+  }
+  
+  .player-select:hover {
+    background-color: #ccc;
+  }
+  
+  .player-button {
+    margin-bottom: 0.3125rem; /* 5px */
+    padding: 0.3125rem 1rem; /* 5px */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0.3125rem; /* 5px */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .player-button:hover {
+    background-color: #003e80;
+  }
+  

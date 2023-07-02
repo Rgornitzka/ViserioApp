@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import TimeGrid from "./TimeGrid";
 import '../../CSSFiles/Timeline.css';
 
@@ -7,11 +7,6 @@ import '../../CSSFiles/Timeline.css';
  */
 function Timeline() {
   const panelRef = useRef(null);
-
-  useEffect(() => {
-    // Log the current panel reference
-    console.log('current ref', panelRef.current);
-  }, []);
 
   return (
     <div className="timeline-container">

@@ -3,6 +3,7 @@ class Ability {
     // Initialize properties
     this.icon = '';
     this.cooldown = 0;
+    this.duration = 0;
     this.spellId = 0;
     this.shortName = '';
     this.name = '';
@@ -18,6 +19,16 @@ class Ability {
     this.cooldown = cd;
     return this;
   }
+
+  /**
+   * Set the duration of the ability.
+   * @param {number} cd - Duration value in seconds.
+   * @returns {Ability} - The updated Ability instance.
+   */
+    setDuration(duration) {
+      this.duration = duration;
+      return this;
+    }
 
   /**
    * Set the icon of the ability.

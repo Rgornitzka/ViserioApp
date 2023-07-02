@@ -1,32 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import useStore from "../../store";
 import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
-import TimeIndicatorLabel from './TimeIndicatorLabel';
 import IconOverlay from './IconOverlay';
-import TimeGridLines from './TimeGridLines';  // Import GridLines component
+import TimeGridLines from './TimeGridLines';
+import AbilityRow from "./AbilityRow";
+import PlayerRow from "./PlayerRow";
+import CLASSCOLORS from '../../config/ClassColors';
 
-/**
- * Component representing a time grid.
- * @param {Object} panelRef - Reference to the panel element.
- */
+// Auxiliary method for generating the RGBA color
+function getRGBAColor(playerClass, alpha = 0.2) {
+  const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; // Get player's class color
+  const [red, green, blue] = playerColour; // Destructure the RGB values
+  return `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
+}
+
 function TimeGrid({ panelRef }) {
-  const { duration, selectedIcons } = useStore(state => ({ duration: state.duration, selectedIcons: state.selectedIcons })); // Get duration and selected icons from the store
+  const {duration, selectedIcons, players} = useStore(state => state);
   const [leftPosition, setLeftPosition] = useState(0);
   const [durationPosition, setDurationPosition] = useState(0);
 
-  useEffect(() => {
-    // Calculate panel width when it's mounted or updated
-    if (panelRef.current) {
-      const panelWidth = panelRef.current.offsetWidth;
-      console.log('panelWidth', panelWidth);
-    }
-  }, [panelRef]);
-
-  /**
-   * Handle mouse movement on the time grid.
-   * @param {Event} e - Mouse move event object.
-   */
   const handleMouseMove = (e) => {
     const rect = panelRef.current.getBoundingClientRect();
     setLeftPosition(e.clientX - rect.left);
@@ -34,19 +27,26 @@ function TimeGrid({ panelRef }) {
     setDurationPosition(positionPercentage * duration);
   }
 
-  const pixelsPerSecond = panelRef.current ? panelRef.current.offsetWidth / duration : 0; // Calculate pixels per second
+  const pixelsPerSecond = panelRef.current ? panelRef.current.offsetWidth / duration : 0;
 
   return (
     <div className="timeGrid" onMouseMove={handleMouseMove}>
-      {/* Render TimeGridLines component */}
       <TimeGridLines duration={duration} />
-
-      {/* Display time indicator bar and labels */}
       <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
-      <TimeIndicatorLabel className="timeIndicatorLabelTop" leftPosition={leftPosition} durationPosition={durationPosition} />
-      <TimeIndicatorLabel className="timeIndicatorLabelBottom" leftPosition={leftPosition} durationPosition={durationPosition} /> 
+      {players.map((player, index) => {
+        const uniqueAbilities = Array.from(new Set(player.selectedAbilities.map(a => a.name)));
+        const rgbaColor = getRGBAColor(player.class); 
 
-      {/* Display selected icons overlay */}
+        return (
+          <div key={index} style={{backgroundColor: rgbaColor}}>
+            <PlayerRow player={player} />
+            {uniqueAbilities.map((abilityName, i) => {
+              const abilities = player.selectedAbilities.filter(a => a.name === abilityName);
+              return <AbilityRow key={i} abilities={abilities} pixelsPerSecond={pixelsPerSecond} />;
+            })}
+          </div>
+        );
+      })}
       <IconOverlay selectedIcons={selectedIcons} pixelsPerSecond={pixelsPerSecond} />
     </div>
   );

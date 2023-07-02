@@ -8,6 +8,7 @@ import TimeIndicatorLabel from './TimeIndicatorLabel';
  * @param {number} props.leftPosition - Left position of the time indicator bar.
  * @param {number} props.durationPosition - Duration position of the time indicator bar.
  */
+
 function TimeIndicatorBar({ leftPosition, durationPosition }) {
   return (
     <div 
@@ -15,7 +16,6 @@ function TimeIndicatorBar({ leftPosition, durationPosition }) {
       className="timeIndicatorContainer"
     >
       <div className="timeIndicatorBar" />
-      {/* Display time indicator labels */}
       <TimeIndicatorLabel className="timeIndicatorLabelTop" durationPosition={durationPosition} />
       <TimeIndicatorLabel className="timeIndicatorLabelBottom" durationPosition={durationPosition} />
     </div>
@@ -23,3 +23,4 @@ function TimeIndicatorBar({ leftPosition, durationPosition }) {
 }
 
 export default TimeIndicatorBar;
+
