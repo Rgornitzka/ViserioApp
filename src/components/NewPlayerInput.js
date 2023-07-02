@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useStore from '../store';
 import CLASSES_SPECS_ROLES from '../config/ClassesSpecsRoles';
 import abilities from '../config/Abilities'; 
+//import predefinedPlayerNames from '../config/PredefinedPlayerNames';
 import '../CSSFiles/NewPlayerInput.css'
 
 function NewPlayerInput() {
@@ -39,6 +40,10 @@ function NewPlayerInput() {
   };
 
   const handleAddToRoster = () => {
+    if (!name) {
+      alert('Player name is required');
+      return;
+    }
     addToRoster({ name, class: playerClass, spec: playerSpec, role: playerRole });
   };
 
@@ -57,13 +62,20 @@ function NewPlayerInput() {
   return (
     <form onSubmit={handleSubmit} className="player-form">
       <input
+        //list="player-names" Dropdownmenu with predefined player names
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        placeholder="Player name"
+        placeholder="Player Name"
         required
         className="player-input"
       />
+{/*   Dropdownmenu with predefined player names   
+      <datalist id="player-names">
+        {predefinedPlayerNames.map((playerName) => (
+          <option key={playerName} value={playerName} />
+        ))}
+      </datalist> */}
       <select
         value={playerClass}
         onChange={handleClassChange}

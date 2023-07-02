@@ -6,12 +6,17 @@ import WowheadIcon from './WowheadIcon';
 import '../CSSFiles/Sidebar.css';
 import '../CSSFiles/NewPlayerDropdown.css'
 import CLASSCOLORS from '../config/ClassColors';
+import DeleteIcon from './DeleteIcon';
 
 function Sidebar() {
-  const { players, addAbilityToPlayer } = useStore();
+  const { players, addAbilityToPlayer, removePlayer } = useStore();
 
   const handleAbilityClick = (ability, player) => {
     addAbilityToPlayer(ability, player.name);
+  }
+
+  const handleDeletePlayer = (playerName) => {
+    removePlayer(playerName);
   }
 
   return (
@@ -22,22 +27,28 @@ function Sidebar() {
         <RosterList />
       </details>
       {players?.map((player) => {
-        const playerColor = CLASSCOLORS[player.class.toUpperCase()]; // Get player's class color
-        const [red, green, blue] = playerColor; // Destructure the RGB values
-        const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.2)`; // Construct the RGBA color value
+        const playerColor = CLASSCOLORS[player.class.toUpperCase()];
+        const [red, green, blue] = playerColor;
+        const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.2)`;
 
         return (
           <div key={player.name} style={{ backgroundColor: rgbaColor }} className="playerSection">
-            <h2 className="playerName">{player.name}</h2>
-            {player.abilities?.map((ability, index) => (
-              <WowheadIcon
-                key={index}
-                name={ability.icon}
-                alt={ability.name}
-                onClick={() => handleAbilityClick(ability, player)}
-                className="playerAbilityIcon"
-              />
-            ))}
+            <div className="playerHeader">
+              <h2 className="playerName">{player.name}</h2>
+              <DeleteIcon className="player-delete-icon" onClick={() => handleDeletePlayer(player.name)} />
+            </div>
+            <div className="abilityIcons">
+              {player.abilities?.map((ability, index) => (
+                <WowheadIcon
+                  key={index}
+                  name={ability.icon}
+                  alt={ability.name}
+                  size = {'2rem'}
+                  onClick={() => handleAbilityClick(ability, player)}
+                  className="playerAbilityIcon"
+                />
+              ))}
+            </div>
           </div>
         );
       })}

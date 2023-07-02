@@ -1,0 +1,47 @@
+.playerSection {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .playerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .player-delete-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    color: black;
+  }
+
+  .playerAbilityIcons {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .playerAbilityIcon {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .rosterPlayer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .rosterPlayerHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .roster-delete-icon {
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    color: black;
+  }
+  
