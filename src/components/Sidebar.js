@@ -1,9 +1,11 @@
 import React from 'react';
 import useStore from '../store';
 import NewPlayerInput from './NewPlayerInput';
+import RosterList from './RosterList';
 import WowheadIcon from './WowheadIcon';
 import '../CSSFiles/Sidebar.css';
-import CLASSCOLORS from '../config/ClassColors'; // Import the CLASSCOLORS config
+import '../CSSFiles/NewPlayerDropdown.css'
+import CLASSCOLORS from '../config/ClassColors';
 
 function Sidebar() {
   const { players, addAbilityToPlayer } = useStore();
@@ -14,8 +16,12 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
-      <NewPlayerInput />
-      {players.map((player) => {
+      <details className="dropdown">
+        <summary className="dropdown-title">Add New Player</summary>
+        <NewPlayerInput />
+        <RosterList />
+      </details>
+      {players?.map((player) => {
         const playerColor = CLASSCOLORS[player.class.toUpperCase()]; // Get player's class color
         const [red, green, blue] = playerColor; // Destructure the RGB values
         const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.2)`; // Construct the RGBA color value
@@ -23,7 +29,7 @@ function Sidebar() {
         return (
           <div key={player.name} style={{ backgroundColor: rgbaColor }} className="playerSection">
             <h2 className="playerName">{player.name}</h2>
-            {player.abilities.map((ability, index) => (
+            {player.abilities?.map((ability, index) => (
               <WowheadIcon
                 key={index}
                 name={ability.icon}

@@ -6,7 +6,8 @@ const useStore = create((set) => ({
   duration: 60 * 10,
   selectedIcons: [],
   currentTime: 0,
-  players: [], // Add players array to your store
+  players: [],
+  roster: [], // Roster array
   addIcon: (icon) => 
     set((state) => ({ 
       selectedIcons: [...state.selectedIcons, { ...icon, time: state.currentTime }],
@@ -15,11 +16,19 @@ const useStore = create((set) => ({
     set(() => ({
       currentTime: time,
     })),
-  addPlayer: (player) => // Add addPlayer function to your store
+  addPlayer: (player) => 
     set((state) => ({
       players: [...state.players, player],
     })),
-
+    addToRoster: (player) =>
+    set((state) => {
+      let sortedRoster = [...state.roster, player];
+      sortedRoster.sort((a, b) => {
+        const roleOrder = ["healer", "tank", "melee", "range"];
+        return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
+      });
+      return { roster: sortedRoster };
+    }),
   addAbilityToPlayer: (ability, playerName) => 
     set((state) => {
       const updatedPlayers = state.players.map(player => {
@@ -32,5 +41,4 @@ const useStore = create((set) => ({
       return { players: updatedPlayers };
     }),
 }));
-
 export default useStore;

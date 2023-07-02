@@ -1,26 +1,58 @@
-// NewPlayerInput.js
 import React, { useState } from 'react';
 import useStore from '../store';
-import CLASSES from '../config/Classes';
+import CLASSES_SPECS_ROLES from '../config/ClassesSpecsRoles';
 import abilities from '../config/Abilities'; 
 import '../CSSFiles/NewPlayerInput.css'
 
 function NewPlayerInput() {
+  const defaultClass = Object.keys(CLASSES_SPECS_ROLES)[0];
+  const defaultSpec = CLASSES_SPECS_ROLES[defaultClass].specs[0].name;
+  const defaultRole = CLASSES_SPECS_ROLES[defaultClass].specs[0].role;
+
   const [name, setName] = useState('');
-  const [playerClass, setPlayerClass] = useState(CLASSES.EVERYONE);
-  const { addPlayer } = useStore();
+  const [playerClass, setPlayerClass] = useState(defaultClass);
+  const [playerSpec, setPlayerSpec] = useState(defaultSpec);
+  const [playerRole, setPlayerRole] = useState(defaultRole);
+  const { addPlayer, addToRoster } = useStore();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    // Fetch abilities of selected class
+  
     const classAbilities = abilities[playerClass];
-    
-    // Add new player with abilities of selected class and no selected abilities
-    addPlayer({ name, class: playerClass, abilities: classAbilities, selectedAbilities: [] });
+    if (!classAbilities) {
+      alert(`Abilities not defined for ${playerClass}`);
+      return;
+    }
 
+    const specAbilities = classAbilities[playerSpec];
+    if (!specAbilities) {
+      alert(`Abilities not defined for ${playerClass} - ${playerSpec}`);
+      return;
+    }
+
+    addPlayer({ name, class: playerClass, spec: playerSpec, role: playerRole, abilities: specAbilities, selectedAbilities: [] });
+  
     setName('');
+    setPlayerClass(defaultClass);
+    setPlayerSpec(defaultSpec);
+    setPlayerRole(defaultRole);
   };
+
+  const handleAddToRoster = () => {
+    addToRoster({ name, class: playerClass, spec: playerSpec, role: playerRole });
+  };
+
+  const handleClassChange = (e) => {
+    setPlayerClass(e.target.value);
+    setPlayerSpec(CLASSES_SPECS_ROLES[e.target.value].specs[0].name);
+    setPlayerRole(CLASSES_SPECS_ROLES[e.target.value].specs[0].role);
+  }
+
+  const handleSpecChange = (e) => {
+    const selectedSpec = CLASSES_SPECS_ROLES[playerClass].specs.find(spec => spec.name === e.target.value);
+    setPlayerSpec(selectedSpec.name);
+    setPlayerRole(selectedSpec.role);
+  }
 
   return (
     <form onSubmit={handleSubmit} className="player-form">
@@ -34,14 +66,24 @@ function NewPlayerInput() {
       />
       <select
         value={playerClass}
-        onChange={(e) => setPlayerClass(e.target.value)}
+        onChange={handleClassChange}
         className="player-select"
       >
-        {Object.values(CLASSES).map((c) => (
-          <option key={c} value={c}>{c}</option> // Add key here
+        {Object.keys(CLASSES_SPECS_ROLES).map((c) => (
+          <option key={c} value={c}>{c}</option>
+        ))}
+      </select>
+      <select
+        value={playerSpec}
+        onChange={handleSpecChange}
+        className="player-select"
+      >
+        {CLASSES_SPECS_ROLES[playerClass].specs.map((spec) => (
+          <option key={spec.name} value={spec.name}>{spec.name}</option>
         ))}
       </select>
       <button type="submit" className="player-button">Add Player</button>
+      <button type="button" onClick={handleAddToRoster} className="player-button">Add To Roster</button>
     </form>
   );
 }

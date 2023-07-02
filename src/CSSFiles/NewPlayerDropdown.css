@@ -1,0 +1,35 @@
+.dropdown {
+  position: relative;
+  display: block;
+  background-color: #181818;
+  margin-bottom: 0.625rem; /* 10px */
+  margin-top: 0.625rem; /* 10px */
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.dropdown-title {
+  cursor: pointer;
+  font-weight: bold;
+  color: #f1f1f1;
+  margin-bottom: 0.3rem;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  padding: 12px 16px;
+  z-index: 1;
+}
+
+.dropdown:hover {
+  display: block;
+  background-color: #303030;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
