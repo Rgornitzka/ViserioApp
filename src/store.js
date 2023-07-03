@@ -7,7 +7,7 @@ const useStore = create((set) => ({
   selectedIcons: [],
   currentTime: 0,
   players: [],
-  roster: [], // Roster array
+  roster: [],
   addIcon: (icon) => 
     set((state) => ({ 
       selectedIcons: [...state.selectedIcons, { ...icon, time: state.currentTime }],
@@ -20,34 +20,36 @@ const useStore = create((set) => ({
     set((state) => ({
       players: [...state.players, { ...player, selectedAbilities: player.selectedAbilities || [] }],
     })),
-  addToRoster: (player) =>
+    addToRoster: (player) =>
     set((state) => {
-      let sortedRoster = [...state.roster, player]; // Do the fix here with { ...player, selectedAbilities: player.selectedAbilities || [] }
+      const specAbilities = generateAbilities(player.class, player.spec);
+      let sortedRoster = [...state.roster, { ...player, abilities: specAbilities }];
       sortedRoster.sort((a, b) => {
         const roleOrder = ["healer", "tank", "melee", "range"];
         return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
       });
       return { roster: sortedRoster };
     }),
-  addPlayerFromRoster: (playerName) => {
+    addPlayerFromRoster: (playerName) =>
       set((state) => {
         const playerToAdd = state.roster.find(player => player.name === playerName);
         if (playerToAdd) {
           return { players: [...state.players, playerToAdd] };
         }
         return state;
-      });
-    },  
-  addAbilityToPlayer: (ability, playerName) => 
-    set((state) => {
-      const updatedPlayers = state.players.map(player => {
-        if (player.name === playerName) {
-          return { ...player, selectedAbilities: [...player.selectedAbilities, { ...ability, time: state.currentTime }] };
-        }
-        return player;
-      });
-      return { players: updatedPlayers };
-    }),
+      }),
+    addAbilityToPlayer: (ability, playerName) => 
+      set((state) => {
+        const updatedPlayers = state.players.map(player => {
+          if (player.name === playerName) {
+            // Ensure selectedAbilities is always an array
+            const selectedAbilities = Array.isArray(player.selectedAbilities) ? player.selectedAbilities : [];
+            return { ...player, selectedAbilities: [...selectedAbilities, { ...ability, time: state.currentTime }] };
+          }
+          return player;
+        });
+        return { players: updatedPlayers };
+      }),
   removePlayerFromRoster: (name) => {
     set((state) => {
       // Filter out the player to delete from the roster array
@@ -63,5 +65,22 @@ const useStore = create((set) => ({
     });
   },
 }));
+
+
+const generateAbilities = (playerClass, playerSpec) => {
+  const classAbilities = abilities[playerClass];
+  if (!classAbilities) {
+    alert(`Abilities not defined for ${playerClass}`);
+    return [];
+  }
+
+  const specAbilities = classAbilities[playerSpec];
+  if (!specAbilities) {
+    alert(`Abilities not defined for ${playerClass} - ${playerSpec}`);
+    return [];
+  }
+
+  return specAbilities;
+};
 
 export default useStore;

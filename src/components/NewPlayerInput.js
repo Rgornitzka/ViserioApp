@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useStore from '../store';
 import CLASSES_SPECS_ROLES from '../config/ClassesSpecsRoles';
 import abilities from '../config/Abilities'; 
-//import predefinedPlayerNames from '../config/PredefinedPlayerNames';
 import '../CSSFiles/NewPlayerInput.css'
 
 function NewPlayerInput() {
@@ -16,18 +15,27 @@ function NewPlayerInput() {
   const [playerRole, setPlayerRole] = useState(defaultRole);
   const { addPlayer, addToRoster } = useStore();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  
+  const generateAbilities = (playerClass, playerSpec) => {
     const classAbilities = abilities[playerClass];
     if (!classAbilities) {
       alert(`Abilities not defined for ${playerClass}`);
-      return;
+      return [];
     }
 
     const specAbilities = classAbilities[playerSpec];
     if (!specAbilities) {
       alert(`Abilities not defined for ${playerClass} - ${playerSpec}`);
+      return [];
+    }
+
+    return specAbilities;
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  
+    const specAbilities = generateAbilities(playerClass, playerSpec);
+    if (specAbilities.length === 0) {
       return;
     }
 
@@ -44,7 +52,13 @@ function NewPlayerInput() {
       alert('Player name is required');
       return;
     }
-    addToRoster({ name, class: playerClass, spec: playerSpec, role: playerRole });
+
+    const specAbilities = generateAbilities(playerClass, playerSpec);
+    if (specAbilities.length === 0) {
+      return;
+    }
+
+    addToRoster({ name, class: playerClass, spec: playerSpec, role: playerRole, abilities: specAbilities });
   };
 
   const handleClassChange = (e) => {
@@ -62,7 +76,6 @@ function NewPlayerInput() {
   return (
     <form onSubmit={handleSubmit} className="player-form">
       <input
-        //list="player-names" Dropdownmenu with predefined player names
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
@@ -70,12 +83,6 @@ function NewPlayerInput() {
         required
         className="player-input"
       />
-{/*   Dropdownmenu with predefined player names   
-      <datalist id="player-names">
-        {predefinedPlayerNames.map((playerName) => (
-          <option key={playerName} value={playerName} />
-        ))}
-      </datalist> */}
       <select
         value={playerClass}
         onChange={handleClassChange}

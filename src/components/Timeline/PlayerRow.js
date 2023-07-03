@@ -9,7 +9,10 @@ function PlayerRow({ player, pixelsPerSecond }) {
   const [red, green, blue] = playerColour;
   const rgbaColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 
-  const uniqueAbilities = Array.from(new Set(player.selectedAbilities.map(a => a.name)));
+  const uniqueAbilities = player.selectedAbilities 
+    ? Array.from(new Set(player.selectedAbilities.map(a => a.name))) 
+    : [];
+
 
   return (
     <div className="playerRow" style={{ backgroundColor: rgbaColor }}>
