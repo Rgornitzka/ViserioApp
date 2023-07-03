@@ -23,7 +23,7 @@ function RosterList() {
       {roster?.map((player, index) => {
         const playerColor = CLASSCOLORS[player.class.toUpperCase()]; // Get player's class color
         const [red, green, blue] = playerColor; // Destructure the RGB values
-        const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.2)`; // Construct the RGBA color value
+        const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.1)`; // Construct the RGBA color value
 
         return (
           <div
