@@ -10,7 +10,7 @@ function AbilityRow({ abilities, pixelsPerSecond }) {
   }
   return (
     <div className="abilityRow">
-      {abilities.map((ability, index) => (
+      {abilities?.map((ability, index) => (
         <WowheadIcon
           key={index}
           name={ability.icon}

@@ -5,22 +5,26 @@ import '../../CSSFiles/PlayerRow.css';
 
 function PlayerRow({ player, pixelsPerSecond }) {
   const alpha = 0.5; 
-  const playerColour = CLASSCOLORS[player.class.toUpperCase()]; // Get player's class color
-  const [red, green, blue] = playerColour; // Destructure the RGB values
-  const rgbaColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
+  const playerColour = CLASSCOLORS[player.class.toUpperCase()]; 
+  const [red, green, blue] = playerColour;
+  const rgbaColor = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
+
+  const uniqueAbilities = Array.from(new Set(player.selectedAbilities.map(a => a.name)));
 
   return (
     <div className="playerRow" style={{ backgroundColor: rgbaColor }}>
       <h3 className="playerName">{player.name}</h3>
-      {Array.isArray(player.selectedAbilities) &&
-        player.selectedAbilities.map((abilityGroup, index) => (
+      {uniqueAbilities.map((abilityName, index) => {
+        const abilities = player.selectedAbilities.filter(a => a.name === abilityName);
+        return (
           <AbilityRow 
             key={index} 
-            abilities={abilityGroup} 
+            abilities={abilities} 
             pixelsPerSecond={pixelsPerSecond} 
             backgroundColor={rgbaColor}
           />
-        ))}
+        );
+      })}
     </div>
   );
 }

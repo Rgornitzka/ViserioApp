@@ -4,7 +4,6 @@ import '../../CSSFiles/TimeGrid.css';
 import TimeIndicatorBar from './TimeIndicatorBar';
 import IconOverlay from './IconOverlay';
 import TimeGridLines from './TimeGridLines';
-import AbilityRow from "./AbilityRow";
 import PlayerRow from "./PlayerRow";
 import CLASSCOLORS from '../../config/ClassColors';
 
@@ -34,16 +33,10 @@ function TimeGrid({ panelRef }) {
       <TimeGridLines duration={duration} />
       <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
       {players.map((player, index) => {
-        const uniqueAbilities = Array.from(new Set(player.selectedAbilities.map(a => a.name)));
         const rgbaColor = getRGBAColor(player.class); 
-
         return (
           <div key={index} style={{backgroundColor: rgbaColor}}>
-            <PlayerRow player={player} />
-            {uniqueAbilities.map((abilityName, i) => {
-              const abilities = player.selectedAbilities.filter(a => a.name === abilityName);
-              return <AbilityRow key={i} abilities={abilities} pixelsPerSecond={pixelsPerSecond} />;
-            })}
+            <PlayerRow player={player} pixelsPerSecond={pixelsPerSecond} />
           </div>
         );
       })}

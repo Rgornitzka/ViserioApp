@@ -18,17 +18,26 @@ const useStore = create((set) => ({
     })),
   addPlayer: (player) => 
     set((state) => ({
-      players: [...state.players, player],
+      players: [...state.players, { ...player, selectedAbilities: player.selectedAbilities || [] }],
     })),
   addToRoster: (player) =>
     set((state) => {
-      let sortedRoster = [...state.roster, player];
+      let sortedRoster = [...state.roster, player]; // Do the fix here with { ...player, selectedAbilities: player.selectedAbilities || [] }
       sortedRoster.sort((a, b) => {
         const roleOrder = ["healer", "tank", "melee", "range"];
         return roleOrder.indexOf(a.role) - roleOrder.indexOf(b.role);
       });
       return { roster: sortedRoster };
     }),
+  addPlayerFromRoster: (playerName) => {
+      set((state) => {
+        const playerToAdd = state.roster.find(player => player.name === playerName);
+        if (playerToAdd) {
+          return { players: [...state.players, playerToAdd] };
+        }
+        return state;
+      });
+    },  
   addAbilityToPlayer: (ability, playerName) => 
     set((state) => {
       const updatedPlayers = state.players.map(player => {
