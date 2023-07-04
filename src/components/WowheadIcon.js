@@ -8,17 +8,16 @@ import React from "react";
  * @param {string} props.size - Size of the icon.
  * @param {Function} props.onClick - Function to handle icon click.
  */
-function WowheadIcon({ name, className, onClick, size}) {
-
-  return (
-    <img
-      src={`https://wow.zamimg.com/images/wow/icons/medium/${name}.jpg`}
-      style={{ width: size }}
-      className={className}
-      alt={name}
-      onClick={onClick}
-    />
-  );
+function WowheadIcon({ name, className, onClick, size }) {
+	return (
+		<img
+			src={`https://wow.zamimg.com/images/wow/icons/medium/${name}.jpg`}
+			style={{ width: size }}
+			className={className}
+			alt={name}
+			onClick={onClick}
+		/>
+	);
 }
 
 export default WowheadIcon;
