@@ -1,0 +1,15 @@
+.boss-section {
+    background-color: rgb(0, 0, 69);
+    color: white;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.boss-name {
+    margin-bottom: 0.5rem;
+}
+.boss-abilities {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}

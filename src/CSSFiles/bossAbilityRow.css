@@ -1,0 +1,6 @@
+.bossAbilityRow {
+    background-color: #ff0000;
+    margin-bottom: 2rem;
+    position: absolute;
+    z-index: 2;
+}
