@@ -1,6 +1,3 @@
-.bossAbilityRow {
-    background-color: #ff0000;
-    margin-bottom: 2rem;
+.bossAbility {
     position: absolute;
-    z-index: 2;
 }
