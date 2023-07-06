@@ -1,48 +1,71 @@
 import React, { useState } from "react";
 import useStore from "../../store";
-import '../../CSSFiles/TimeGrid.css';
-import TimeIndicatorBar from './TimeIndicatorBar';
-import IconOverlay from './IconOverlay';
-import TimeGridLines from './TimeGridLines';
+import "../../CSSFiles/TimeGrid.css";
+import TimeIndicatorBar from "./TimeIndicatorBar";
+import IconOverlay from "./IconOverlay";
+import TimeGridLines from "./TimeGridLines";
 import PlayerRow from "./PlayerRow";
-import CLASSCOLORS from '../../config/ClassColors';
+import CLASSCOLORS from "../../config/ClassColors";
+import BossAbilityRow from "../BossAbilityRow"
 
 // Auxiliary method for generating the RGBA color
 function getRGBAColor(playerClass, alpha = 0.2) {
-  const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; // Get player's class color
-  const [red, green, blue] = playerColour; // Destructure the RGB values
-  return `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
+	const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; // Get player's class color
+	const [red, green, blue] = playerColour; // Destructure the RGB values
+	return `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
 }
 
 function TimeGrid({ panelRef }) {
-  const {duration, selectedIcons, players} = useStore(state => state);
-  const [leftPosition, setLeftPosition] = useState(0);
-  const [durationPosition, setDurationPosition] = useState(0);
+	const { duration, selectedIcons, players } = useStore((state) => state);
+	const [leftPosition, setLeftPosition] = useState(0);
+	const [durationPosition, setDurationPosition] = useState(0);
+	const selectedBossAbilities = useStore(
+		(state) => state.selectedBossAbilities
+	);
+	const bosses = useStore((state) => state.bosses);
+	const bossAbilities = useStore((state) => state.bossAbilities);
 
-  const handleMouseMove = (e) => {
-    const rect = panelRef.current.getBoundingClientRect();
-    setLeftPosition(e.clientX - rect.left);
-    const positionPercentage = (e.clientX - rect.left) / rect.width;
-    setDurationPosition(positionPercentage * duration);
-  }
+	const handleMouseMove = (e) => {
+		const rect = panelRef.current.getBoundingClientRect();
+		setLeftPosition(e.clientX - rect.left);
+		const positionPercentage = (e.clientX - rect.left) / rect.width;
+		setDurationPosition(positionPercentage * duration);
+	};
 
-  const pixelsPerSecond = panelRef.current ? panelRef.current.offsetWidth / duration : 0;
+	const pixelsPerSecond = panelRef.current
+		? panelRef.current.offsetWidth / duration
+		: 0;
 
-  return (
-    <div className="timeGrid" onMouseMove={handleMouseMove}>
-      <TimeGridLines duration={duration} />
-      <TimeIndicatorBar leftPosition={leftPosition} durationPosition={durationPosition} />
-      {players.map((player, index) => {
-        const rgbaColor = getRGBAColor(player.class); 
-        return (
-          <div key={index} style={{backgroundColor: rgbaColor}}>
-            <PlayerRow player={player} pixelsPerSecond={pixelsPerSecond} />
-          </div>
-        );
-      })}
-      <IconOverlay selectedIcons={selectedIcons} pixelsPerSecond={pixelsPerSecond} />
-    </div>
-  );
+	return (
+		<div className="timeGrid" onMouseMove={handleMouseMove}>
+			<div>
+				{bossAbilities.map((ability, index) => (
+					<BossAbilityRow
+						key={index}
+						ability={ability}
+						pixelsPerSecond={pixelsPerSecond}
+					/>
+				))}
+			</div>
+			<TimeGridLines duration={duration} />
+			<TimeIndicatorBar
+				leftPosition={leftPosition}
+				durationPosition={durationPosition}
+			/>
+			{players.map((player, index) => {
+				const rgbaColor = getRGBAColor(player.class);
+				return (
+					<div key={index} style={{ backgroundColor: rgbaColor }}>
+						<PlayerRow player={player} pixelsPerSecond={pixelsPerSecond} />
+					</div>
+				);
+			})}
+			<IconOverlay
+				selectedIcons={selectedIcons}
+				pixelsPerSecond={pixelsPerSecond}
+			/>
+		</div>
+	);
 }
 
 export default TimeGrid;

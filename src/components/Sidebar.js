@@ -3,10 +3,12 @@ import useStore from '../store';
 import NewPlayerInput from './NewPlayerInput';
 import RosterList from './RosterList';
 import WowheadIcon from './WowheadIcon';
-import '../CSSFiles/Sidebar.css';
-import '../CSSFiles/NewPlayerDropdown.css'
 import CLASSCOLORS from '../config/ClassColors';
 import DeleteIcon from './DeleteIcon';
+import SidebarBossAbilities from './SidebarBossAbilities';
+import '../CSSFiles/Sidebar.css';
+import '../CSSFiles/NewPlayerDropdown.css'
+import bossSection from "../CSSFiles/bossSection.css";
 
 function Sidebar() {
   const { players, addAbilityToPlayer, removePlayer } = useStore();
@@ -21,6 +23,7 @@ function Sidebar() {
 
   return (
     <div className="sidebar">
+      <SidebarBossAbilities/>
       <details className="dropdown">
         <summary className="dropdown-title">Add New Player</summary>
         <NewPlayerInput />
