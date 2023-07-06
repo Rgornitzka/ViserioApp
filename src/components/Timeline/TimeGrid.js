@@ -6,7 +6,7 @@ import IconOverlay from "./IconOverlay";
 import TimeGridLines from "./TimeGridLines";
 import PlayerRow from "./PlayerRow";
 import CLASSCOLORS from "../../config/ClassColors";
-import BossAbilityRow from "../BossAbilityRow"
+import BossAbilityRow from "../BossAbilityRow";
 
 // Auxiliary method for generating the RGBA color
 function getRGBAColor(playerClass, alpha = 0.2) {
@@ -39,13 +39,24 @@ function TimeGrid({ panelRef }) {
 	return (
 		<div className="timeGrid" onMouseMove={handleMouseMove}>
 			<div className="bossAbilityWrapper">
-				{bossAbilities.map((ability, index) => (
-					<BossAbilityRow
-						key={index}
-						ability={ability}
-						pixelsPerSecond={pixelsPerSecond}
-					/>
-				))}
+				{[...new Set(bossAbilities.map((ability) => ability.name))].map(
+					(uniqueAbilityName, index) => {
+						const abilityEvents = bossAbilities.filter(
+							(ability) => ability.name === uniqueAbilityName
+						);
+						return (
+							<div key={index} className="bossAbilityRow">
+								{abilityEvents.map((abilityEvent, index) => (
+									<BossAbilityRow
+										key={index}
+										ability={abilityEvent}
+										pixelsPerSecond={pixelsPerSecond}
+									/>
+								))}
+							</div>
+						);
+					}
+				)}
 			</div>
 			<TimeGridLines duration={duration} />
 			<TimeIndicatorBar
