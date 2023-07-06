@@ -38,7 +38,7 @@ function TimeGrid({ panelRef }) {
 
 	return (
 		<div className="timeGrid" onMouseMove={handleMouseMove}>
-			<div>
+			<div className="bossAbilityWrapper">
 				{bossAbilities.map((ability, index) => (
 					<BossAbilityRow
 						key={index}
@@ -55,9 +55,12 @@ function TimeGrid({ panelRef }) {
 			{players.map((player, index) => {
 				const rgbaColor = getRGBAColor(player.class);
 				return (
-					<div key={index} style={{ backgroundColor: rgbaColor }}>
-						<PlayerRow player={player} pixelsPerSecond={pixelsPerSecond} />
-					</div>
+					<PlayerRow
+						key={index}
+						player={player}
+						pixelsPerSecond={pixelsPerSecond}
+						style={{ backgroundColor: rgbaColor }}
+					/>
 				);
 			})}
 			<IconOverlay
