@@ -10,6 +10,7 @@ function WowheadIcon({
 	constraintsRef,
 	pixelsPerSecond,
 }) {
+	// eslint-disable-next-line
 	const [isDragging, setIsDragging] = useState(false);
 	const handleDragStart = () => setIsDragging(true);
 	const handleDragEnd = () => setIsDragging(false);

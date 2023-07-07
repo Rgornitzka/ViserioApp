@@ -2,7 +2,7 @@
 	color: #fff;
 	text-align: center;
 	font-size: medium;
-  padding-bottom: 0.3rem;
+	padding-bottom: 0.3rem;
 }
 
 .roster-player {
@@ -26,5 +26,5 @@
 }
 
 .roster-title {
-  margin-bottom: 0.3rem;
+	margin-bottom: 0.3rem;
 }

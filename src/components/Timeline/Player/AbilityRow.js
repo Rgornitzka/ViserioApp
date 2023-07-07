@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import WowheadIcon from "../WowheadIcon";
-import "../../CSSFiles/AbilityRow.css";
+import WowheadIcon from "../../Icons/WowheadIcon";
+import "../../../CSSFiles/Timeline/AbilityRow.css";
 
 function AbilityRow({ abilities, pixelsPerSecond }) {
 	const constraintsRef = useRef(null);

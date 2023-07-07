@@ -1,14 +1,14 @@
 import React from "react";
-import useStore from "../store";
+import useStore from "../../store";
 import NewPlayerInput from "./NewPlayerInput";
 import RosterList from "./RosterList";
-import WowheadIcon from "./WowheadIcon";
-import CLASSCOLORS from "../config/ClassColors";
+import WowheadIcon from "./../Icons/WowheadIcon";
+import CLASSCOLORS from "../../config/ClassColors";
 import DeleteIcon from "./DeleteIcon";
-import SidebarBossAbilities from "./SidebarBossAbilities";
-import Bosses from "../config/Bosses";
-import "../CSSFiles/Sidebar.css";
-import "../CSSFiles/NewPlayerDropdown.css";
+import SidebarBossAbilities from "./../Sidebar/SidebarBossAbilities";
+import Bosses from "../../config/Bosses";
+import "../../CSSFiles/Sidebar/Sidebar.css";
+import "../../CSSFiles/Sidebar/NewPlayerDropdown.css";
 
 function Sidebar() {
 	const { players, addAbilityToPlayer, addBossAbility, removePlayer } = useStore();

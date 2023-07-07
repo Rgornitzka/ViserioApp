@@ -1,7 +1,7 @@
 import React from "react";
-import WowheadIcon from "./WowheadIcon";
-import useStore from "../store";
-import "../CSSFiles/SidebarBossAbilities.css"; // Import your custom CSS file
+import WowheadIcon from "../Icons/WowheadIcon";
+import useStore from "../../store";
+import "../../CSSFiles/Sidebar/SidebarBossAbilities.css"; // Import your custom CSS file
 
 function SidebarBossAbilities({ boss }) {
 	const selectedDifficulty = "mythic";

@@ -1,9 +1,9 @@
 import React from 'react';
-import useStore from '../store';
-import CLASSCOLORS from '../config/ClassColors';
+import useStore from "../../store";
+import CLASSCOLORS from "../../config/ClassColors";
 import DeleteIcon from './DeleteIcon';
-import '../CSSFiles/RosterList.css';
-import '../CSSFiles/DeletePlayer.css';
+import "../../CSSFiles/Sidebar/RosterList.css";
+import "../../CSSFiles/Sidebar/DeletePlayer.css";
 
 function RosterList() {
   const { roster, removePlayerFromRoster, addPlayerFromRoster } = useStore();

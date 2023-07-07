@@ -8,7 +8,7 @@
   
   .timeline-container {
     flex: 2;
-    background-color: #181818;
+    background-color: #000000;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     height: auto;
@@ -17,6 +17,5 @@
   
   .timeline-panel {
     position: relative;
-    border: 1px solid #dee2e6;
   }
   

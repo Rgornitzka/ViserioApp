@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import useStore from "../../store";
-import "../../CSSFiles/TimeGrid.css";
+import useStore from "../../../store";
+import "../../../CSSFiles/Timeline/TimeGrid.css";
 import TimeIndicatorBar from "./TimeIndicatorBar";
-import IconOverlay from "./IconOverlay";
 import TimeGridLines from "./TimeGridLines";
-import PlayerRow from "./PlayerRow";
-import CLASSCOLORS from "../../config/ClassColors";
-import BossAbilityRow from "../BossAbilityRow";
+import PlayerRow from "../Player/PlayerRow";
+import CLASSCOLORS from "../../../config/ClassColors";
+import BossAbilityRow from "../Boss/BossAbilityRow";
 
 // Auxiliary method for generating the RGBA color
 function getRGBAColor(playerClass, alpha = 0.2) {
@@ -16,7 +15,7 @@ function getRGBAColor(playerClass, alpha = 0.2) {
 }
 
 function TimeGrid({ panelRef }) {
-	const { duration, selectedIcons, players } = useStore((state) => state);
+	const { duration, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
 	const bossAbilities = useStore((state) => state.bossAbilities);
@@ -70,10 +69,6 @@ function TimeGrid({ panelRef }) {
 					/>
 				);
 			})}
-			<IconOverlay
-				selectedIcons={selectedIcons}
-				pixelsPerSecond={pixelsPerSecond}
-			/>
 		</div>
 	);
 }

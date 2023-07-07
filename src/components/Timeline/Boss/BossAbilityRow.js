@@ -1,6 +1,6 @@
 import React from "react";
-import WowheadIcon from "./WowheadIcon";
-import "../CSSFiles/bossAbilityRow.css";
+import WowheadIcon from "../../Icons/WowheadIcon";
+import "../../../CSSFiles/Timeline/bossAbilityRow.css";
 
 function BossAbilityRow({ ability, pixelsPerSecond }) {
 	const leftPosition = ability.time * pixelsPerSecond;

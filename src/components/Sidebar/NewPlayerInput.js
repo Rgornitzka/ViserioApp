@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import useStore from "../store";
-import CLASSES_SPECS_ROLES from "../config/ClassesSpecsRoles";
-import abilities from "../config/Abilities";
-import "../CSSFiles/NewPlayerInput.css";
-
-// Import the CLASSCOLORS object
-import CLASSCOLORS from "../config/ClassColors";
+import useStore from "../../store";
+import CLASSES_SPECS_ROLES from "../../config/ClassesSpecsRoles";
+import abilities from "../../config/Abilities";
+import "../../CSSFiles/Sidebar/NewPlayerInput.css";
+import CLASSCOLORS from "../../config/ClassColors";
 
 function NewPlayerInput() {
 	const defaultClass = Object.keys(CLASSES_SPECS_ROLES)[0];
