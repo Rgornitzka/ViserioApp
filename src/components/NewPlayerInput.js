@@ -1,110 +1,192 @@
-import React, { useState } from 'react';
-import useStore from '../store';
-import CLASSES_SPECS_ROLES from '../config/ClassesSpecsRoles';
-import abilities from '../config/Abilities'; 
-import '../CSSFiles/NewPlayerInput.css'
+import React, { useState } from "react";
+import useStore from "../store";
+import CLASSES_SPECS_ROLES from "../config/ClassesSpecsRoles";
+import abilities from "../config/Abilities";
+import "../CSSFiles/NewPlayerInput.css";
+
+// Import the CLASSCOLORS object
+import CLASSCOLORS from "../config/ClassColors";
 
 function NewPlayerInput() {
-  const defaultClass = Object.keys(CLASSES_SPECS_ROLES)[0];
-  const defaultSpec = CLASSES_SPECS_ROLES[defaultClass].specs[0].name;
-  const defaultRole = CLASSES_SPECS_ROLES[defaultClass].specs[0].role;
+	const defaultClass = Object.keys(CLASSES_SPECS_ROLES)[0];
+	const defaultSpec = CLASSES_SPECS_ROLES[defaultClass].specs[0].name;
+	const defaultRole = CLASSES_SPECS_ROLES[defaultClass].specs[0].role;
 
-  const [name, setName] = useState('');
-  const [playerClass, setPlayerClass] = useState(defaultClass);
-  const [playerSpec, setPlayerSpec] = useState(defaultSpec);
-  const [playerRole, setPlayerRole] = useState(defaultRole);
-  const { addPlayer, addToRoster } = useStore();
+	const [name, setName] = useState("");
+	const [playerClass, setPlayerClass] = useState(defaultClass);
+	const [playerSpec, setPlayerSpec] = useState(defaultSpec);
+	const [playerRole, setPlayerRole] = useState(defaultRole);
+	const { addPlayer, addToRoster } = useStore();
 
-  const generateAbilities = (playerClass, playerSpec) => {
-    const classAbilities = abilities[playerClass];
-    if (!classAbilities) {
-      alert(`Abilities not defined for ${playerClass}`);
-      return [];
-    }
+	// Generate abilities based on player class and spec
+	const generateAbilities = (playerClass, playerSpec) => {
+		const classAbilities = abilities[playerClass];
+		if (!classAbilities) {
+			alert(`Abilities not defined for ${playerClass}`);
+			return [];
+		}
 
-    const specAbilities = classAbilities[playerSpec];
-    if (!specAbilities) {
-      alert(`Abilities not defined for ${playerClass} - ${playerSpec}`);
-      return [];
-    }
+		const specAbilities = classAbilities[playerSpec];
+		if (!specAbilities) {
+			alert(`Abilities not defined for ${playerClass} - ${playerSpec}`);
+			return [];
+		}
 
-    return specAbilities;
-  }
+		return specAbilities;
+	};
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  
-    const specAbilities = generateAbilities(playerClass, playerSpec);
-    if (specAbilities.length === 0) {
-      return;
-    }
+	// Handle form submission
+	const handleSubmit = (event) => {
+		event.preventDefault();
 
-    addPlayer({ name, class: playerClass, spec: playerSpec, role: playerRole, abilities: specAbilities, selectedAbilities: [] });
-  
-    setName('');
-    setPlayerClass(defaultClass);
-    setPlayerSpec(defaultSpec);
-    setPlayerRole(defaultRole);
-  };
+		const specAbilities = generateAbilities(playerClass, playerSpec);
+		if (specAbilities.length === 0) {
+			return;
+		}
 
-  const handleAddToRoster = () => {
-    if (!name) {
-      alert('Player name is required');
-      return;
-    }
+		const playerData = {
+			name,
+			class: playerClass,
+			spec: playerSpec,
+			role: playerRole,
+			abilities: specAbilities,
+			selectedAbilities: [],
+		};
 
-    const specAbilities = generateAbilities(playerClass, playerSpec);
-    if (specAbilities.length === 0) {
-      return;
-    }
+		addPlayer(playerData);
 
-    addToRoster({ name, class: playerClass, spec: playerSpec, role: playerRole, abilities: specAbilities });
-  };
+		resetForm();
+	};
 
-  const handleClassChange = (e) => {
-    setPlayerClass(e.target.value);
-    setPlayerSpec(CLASSES_SPECS_ROLES[e.target.value].specs[0].name);
-    setPlayerRole(CLASSES_SPECS_ROLES[e.target.value].specs[0].role);
-  }
+	// Handle adding player to roster
+	const handleAddToRoster = () => {
+		if (!name) {
+			alert("Player name is required");
+			return;
+		}
 
-  const handleSpecChange = (e) => {
-    const selectedSpec = CLASSES_SPECS_ROLES[playerClass].specs.find(spec => spec.name === e.target.value);
-    setPlayerSpec(selectedSpec.name);
-    setPlayerRole(selectedSpec.role);
-  }
+		const specAbilities = generateAbilities(playerClass, playerSpec);
+		if (specAbilities.length === 0) {
+			return;
+		}
 
-  return (
-    <form onSubmit={handleSubmit} className="player-form">
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="Player Name"
-        required
-        className="player-input"
-      />
-      <select
-        value={playerClass}
-        onChange={handleClassChange}
-        className="player-select"
-      >
-        {Object.keys(CLASSES_SPECS_ROLES).map((c) => (
-          <option key={c} value={c}>{c}</option>
-        ))}
-      </select>
-      <select
-        value={playerSpec}
-        onChange={handleSpecChange}
-        className="player-select"
-      >
-        {CLASSES_SPECS_ROLES[playerClass].specs.map((spec) => (
-          <option key={spec.name} value={spec.name}>{spec.name}</option>
-        ))}
-      </select>
-      <button type="submit" className="player-button">Add Player</button>
-      <button type="button" onClick={handleAddToRoster} className="player-button">Add To Roster</button>
-    </form>
-  );
+		const playerData = {
+			name,
+			class: playerClass,
+			spec: playerSpec,
+			role: playerRole,
+			abilities: specAbilities,
+		};
+
+		addToRoster(playerData);
+
+		resetForm();
+	};
+
+	// Handle class selection change
+	const handleClassChange = (e) => {
+		const selectedClass = e.target.value;
+		setPlayerClass(selectedClass);
+		setPlayerSpec(CLASSES_SPECS_ROLES[selectedClass].specs[0].name);
+		setPlayerRole(CLASSES_SPECS_ROLES[selectedClass].specs[0].role);
+	};
+
+	// Handle spec selection change
+	const handleSpecChange = (e) => {
+		const selectedSpecName = e.target.value;
+		const selectedSpec = CLASSES_SPECS_ROLES[playerClass].specs.find(
+			(spec) => spec.name === selectedSpecName
+		);
+		setPlayerSpec(selectedSpec.name);
+		setPlayerRole(selectedSpec.role);
+	};
+
+	// Reset the form fields
+	const resetForm = () => {
+		setName("");
+		setPlayerClass(defaultClass);
+		setPlayerSpec(defaultSpec);
+		setPlayerRole(defaultRole);
+	};
+
+	return (
+		<form onSubmit={handleSubmit} className="player-form">
+			{/* Player Name Input */}
+			<input
+				type="text"
+				value={name}
+				onChange={(e) => setName(e.target.value)}
+				placeholder="Player Name"
+				required
+				className="player-input"
+			/>
+			{/* Player Class Selection */}
+			<select
+				value={playerClass}
+				onChange={handleClassChange}
+				className="player-select"
+			>
+				{Object.keys(CLASSES_SPECS_ROLES).map((className) => {
+					const classColor = CLASSCOLORS[className].join(",");
+					return (
+						<option
+							key={className}
+							value={className}
+							style={{
+								fontWeight: "bold",
+								backgroundColor: `rgb(${classColor})`,
+							}}
+						>
+							{className}
+						</option>
+					);
+				})}
+			</select>
+			{/* Player Spec Selection */}
+			<select
+				value={playerSpec}
+				onChange={handleSpecChange}
+				className="player-select"
+			>
+				{CLASSES_SPECS_ROLES[playerClass].specs.map((spec) => {
+					const classColor = CLASSCOLORS[playerClass].join(",");
+					return (
+						<option
+							key={spec.name}
+							value={spec.name}
+							style={{
+								fontWeight: "bold",
+								backgroundColor: `rgb(${classColor})`,
+							}}
+						>
+							{spec.name}
+						</option>
+					);
+				})}
+			</select>
+			{/* Add Player Button */}
+			<button
+				type="submit"
+				className="player-button"
+				style={{
+					fontWeight: "bold",
+				}}
+			>
+				Add Player
+			</button>
+			{/* Add to Roster Button */}
+			<button
+				type="button"
+				onClick={handleAddToRoster}
+				className="player-button"
+				style={{
+					fontWeight: "bold",
+				}}
+			>
+				Add To Roster
+			</button>
+		</form>
+	);
 }
 
 export default NewPlayerInput;

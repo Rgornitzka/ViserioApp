@@ -1,8 +1,8 @@
 import React from 'react';
 import useStore from '../store';
 import CLASSCOLORS from '../config/ClassColors';
-import '../CSSFiles/RosterList.css';
 import DeleteIcon from './DeleteIcon';
+import '../CSSFiles/RosterList.css';
 import '../CSSFiles/DeletePlayer.css';
 
 function RosterList() {
@@ -18,7 +18,7 @@ function RosterList() {
 
   return (
     <div className="roster">
-      <h3>Roster</h3>
+      <div className="roster-title">Roster</div>
       {roster?.map((player, index) => {
         const playerColor = CLASSCOLORS[player.class.toUpperCase()]; // Get player's class color
         const [red, green, blue] = playerColor; // Destructure the RGB values
@@ -28,12 +28,11 @@ function RosterList() {
           <div
             key={index}
             style={{ backgroundColor: rgbaColor }}
-            className="roosterPlayer"
             onClick={() => handlePlayerClick(player.name)}
           >
-          <div key={index} style={{ backgroundColor: rgbaColor }} className="roosterPlayer">
-            <div className="roosterPlayerHeader">
-              <span>{player.name} - {player.class}</span>
+          <div key={index} style={{ backgroundColor: rgbaColor }} className="roster-player">
+            <div className="roster-player-header">
+              <span>{player.name}</span>
               <DeleteIcon onClick={() => handleDeleteClick(player.name)} className="roster-delete-icon"/>
             </div>
           </div>

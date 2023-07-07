@@ -1,9 +1,10 @@
 import React from "react";
 import WowheadIcon from "./WowheadIcon";
 import useStore from "../store";
+import "../CSSFiles/SidebarBossAbilities.css"; // Import your custom CSS file
 
 function SidebarBossAbilities({ boss }) {
-	const selectedDifficulty = "mythic"; // set the difficulty here, this can be state based on user input
+	const selectedDifficulty = "mythic";
 	const toggleBossAbility = useStore((state) => state.toggleBossAbility);
 
 	if (!boss || !boss.difficulty || !boss.difficulty[selectedDifficulty]) {
@@ -13,11 +14,15 @@ function SidebarBossAbilities({ boss }) {
 	const phases = boss.difficulty[selectedDifficulty].phases;
 
 	return (
-		<div>
+		<div className="sidebar-boss-abilities">
+			{" "}
+			{/* Apply a CSS class name to the outermost div */}
 			{phases.map((phase, phaseIndex) => (
-				<div key={phaseIndex}>
-					<h3>Phase {phase.name}</h3>
-					<div>
+				<div key={phaseIndex} className="phase">
+					<div className="phase-title">
+						Phase {phase.name}
+					</div>
+					<div className="abilities">
 						{phase.abilities.map((ability, index) => (
 							<WowheadIcon
 								key={index}

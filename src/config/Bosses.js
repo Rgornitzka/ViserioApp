@@ -61,7 +61,7 @@ const Bosses = {
 								dynamicTrigger: "value2",
 							},
 							// Add more abilities for Phase 2 as needed...
-							,
+							
 						],
 					},
 					{

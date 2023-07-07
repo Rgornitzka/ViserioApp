@@ -16,6 +16,13 @@
     color: black;
   }
 
+  .player-delete-icon:hover, .roster-delete-icon:hover  {
+    opacity: 80%;
+    box-shadow: 0 0 0.1rem rgba(118, 0, 0, 0.502);
+    background-color: rgba(118, 0, 0, 0.502);
+    transition: all 0.3s ease;
+  }
+
   .playerAbilityIcons {
     margin: 1rem;
     padding: 1rem;
@@ -25,18 +32,7 @@
     margin: 0;
     padding: 0;
   }
-  
-  .rosterPlayer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .rosterPlayerHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+
   
   .roster-delete-icon {
     height: 1.5rem;

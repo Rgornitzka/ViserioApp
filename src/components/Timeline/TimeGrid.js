@@ -19,10 +19,6 @@ function TimeGrid({ panelRef }) {
 	const { duration, selectedIcons, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
-	const selectedBossAbilities = useStore(
-		(state) => state.selectedBossAbilities
-	);
-	const bosses = useStore((state) => state.bosses);
 	const bossAbilities = useStore((state) => state.bossAbilities);
 
 	const handleMouseMove = (e) => {

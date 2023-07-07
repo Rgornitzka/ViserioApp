@@ -1,27 +1,22 @@
 /* .timeline {
-    flex: 1;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    
 }
  */
-/* Timeline.css */
 .container {
     display: flex;
-    justify-content: space-between;
   }
   
   .timeline-container {
     flex: 2;
     background-color: #181818;
-    padding: 20px;
-    border: 1px solid #282828;
-    height: 100%;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: auto;
+    min-height: 100vh;
   }
   
   .timeline-panel {
     position: relative;
-    height: 1200px;
     border: 1px solid #dee2e6;
   }
   
