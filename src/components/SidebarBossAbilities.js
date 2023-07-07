@@ -1,22 +1,29 @@
 import React from "react";
-import useStore from "../store";
 import WowheadIcon from "./WowheadIcon";
+import useStore from "../store";
 
-function SidebarBossAbilities() {
-	const bosses = useStore((state) => state.bosses);
+function SidebarBossAbilities({ boss }) {
+	const selectedDifficulty = "mythic"; // set the difficulty here, this can be state based on user input
 	const toggleBossAbility = useStore((state) => state.toggleBossAbility);
+
+	if (!boss || !boss.difficulty || !boss.difficulty[selectedDifficulty]) {
+		return null;
+	}
+
+	const phases = boss.difficulty[selectedDifficulty].phases;
 
 	return (
 		<div>
-			{Object.values(bosses).map((boss) => (
-				<div key={boss.name} className="boss-section">
-					<h3 className="boss-name">{boss.name}</h3>
-					<div className="boss-abilities">
-						{boss.abilities.map((ability) => (
+			{phases.map((phase, phaseIndex) => (
+				<div key={phaseIndex}>
+					<h3>Phase {phase.name}</h3>
+					<div>
+						{phase.abilities.map((ability, index) => (
 							<WowheadIcon
-								key={ability.name}
+								key={index}
 								name={ability.icon}
-								size="30px"
+								alt={ability.name}
+								size={"2rem"}
 								onClick={() => toggleBossAbility(ability, ability.timers)}
 							/>
 						))}

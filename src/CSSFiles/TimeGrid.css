@@ -6,10 +6,11 @@
 
 .bossAbilityWrapper {
   position: relative;
-  background-color: rgb(0, 0, 69);
+  background-color: rgb(0, 0, 0);
   color: white;
   height: auto;
-  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .bossAbilityRow {

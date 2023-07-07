@@ -16,7 +16,6 @@ function RosterList() {
     addPlayerFromRoster(playerName);
   }
 
-  console.log('rosterlist', roster);
   return (
     <div className="roster">
       <h3>Roster</h3>
