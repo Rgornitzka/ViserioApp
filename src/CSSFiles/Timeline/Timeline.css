@@ -1,0 +1,21 @@
+/* .timeline {
+    
+}
+ */
+.container {
+    display: flex;
+  }
+  
+  .timeline-container {
+    flex: 2;
+    background-color: #000000;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .timeline-panel {
+    position: relative;
+  }
+  

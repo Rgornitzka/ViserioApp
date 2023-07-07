@@ -102,20 +102,17 @@ const useStore = create((set) => ({
 		})),
 	toggleBossAbility: (bossAbility, times = []) =>
 		set((state) => {
-			// Check if the ability already exists
 			const abilityExists = state.bossAbilities.some(
 				(ability) => ability.name === bossAbility.name
 			);
 
 			if (abilityExists) {
-				// If it does, remove it
 				return {
 					bossAbilities: state.bossAbilities.filter(
 						(ability) => ability.name !== bossAbility.name
 					),
 				};
 			} else {
-				// If it doesn't, add it
 				return {
 					bossAbilities: [
 						...state.bossAbilities,

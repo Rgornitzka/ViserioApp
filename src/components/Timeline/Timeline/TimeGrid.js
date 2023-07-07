@@ -1,12 +1,11 @@
 import React, { useState } from "react";
-import useStore from "../../store";
-import "../../CSSFiles/TimeGrid.css";
+import useStore from "../../../store";
+import "../../../CSSFiles/Timeline/TimeGrid.css";
 import TimeIndicatorBar from "./TimeIndicatorBar";
-import IconOverlay from "./IconOverlay";
 import TimeGridLines from "./TimeGridLines";
-import PlayerRow from "./PlayerRow";
-import CLASSCOLORS from "../../config/ClassColors";
-import BossAbilityRow from "../BossAbilityRow"
+import PlayerRow from "../Player/PlayerRow";
+import CLASSCOLORS from "../../../config/ClassColors";
+import BossAbilityRow from "../Boss/BossAbilityRow";
 
 // Auxiliary method for generating the RGBA color
 function getRGBAColor(playerClass, alpha = 0.2) {
@@ -16,13 +15,9 @@ function getRGBAColor(playerClass, alpha = 0.2) {
 }
 
 function TimeGrid({ panelRef }) {
-	const { duration, selectedIcons, players } = useStore((state) => state);
+	const { duration, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
-	const selectedBossAbilities = useStore(
-		(state) => state.selectedBossAbilities
-	);
-	const bosses = useStore((state) => state.bosses);
 	const bossAbilities = useStore((state) => state.bossAbilities);
 
 	const handleMouseMove = (e) => {
@@ -39,13 +34,24 @@ function TimeGrid({ panelRef }) {
 	return (
 		<div className="timeGrid" onMouseMove={handleMouseMove}>
 			<div className="bossAbilityWrapper">
-				{bossAbilities.map((ability, index) => (
-					<BossAbilityRow
-						key={index}
-						ability={ability}
-						pixelsPerSecond={pixelsPerSecond}
-					/>
-				))}
+				{[...new Set(bossAbilities.map((ability) => ability.name))].map(
+					(uniqueAbilityName, index) => {
+						const abilityEvents = bossAbilities.filter(
+							(ability) => ability.name === uniqueAbilityName
+						);
+						return (
+							<div key={index} className="bossAbilityRow">
+								{abilityEvents.map((abilityEvent, index) => (
+									<BossAbilityRow
+										key={index}
+										ability={abilityEvent}
+										pixelsPerSecond={pixelsPerSecond}
+									/>
+								))}
+							</div>
+						);
+					}
+				)}
 			</div>
 			<TimeGridLines duration={duration} />
 			<TimeIndicatorBar
@@ -63,10 +69,6 @@ function TimeGrid({ panelRef }) {
 					/>
 				);
 			})}
-			<IconOverlay
-				selectedIcons={selectedIcons}
-				pixelsPerSecond={pixelsPerSecond}
-			/>
 		</div>
 	);
 }

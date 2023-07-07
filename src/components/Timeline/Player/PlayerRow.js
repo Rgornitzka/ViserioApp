@@ -1,7 +1,7 @@
 import React from "react";
-import CLASSCOLORS from "../../config/ClassColors";
+import CLASSCOLORS from "../../../config/ClassColors";
 import AbilityRow from "./AbilityRow";
-import "../../CSSFiles/PlayerRow.css";
+import "../../../CSSFiles/Timeline/PlayerRow.css";
 
 function PlayerRow({ player, pixelsPerSecond, style }) {
 	const alpha = 0.5;

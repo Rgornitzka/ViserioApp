@@ -1,6 +1,8 @@
 import React from "react";
 import BossAbilityRow from "./BossAbilityRow";
 
+//Currently not in use
+
 function BossRow({ boss, pixelsPerSecond }) {
 	console.log("boss:", boss); // Debugging line
 

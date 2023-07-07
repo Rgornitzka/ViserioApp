@@ -1,0 +1,30 @@
+.roster {
+	color: #fff;
+	text-align: center;
+	font-size: medium;
+	padding-bottom: 0.3rem;
+}
+
+.roster-player {
+	padding: 0.2rem;
+	border-radius: 5px;
+	color: white;
+	text-align: left;
+}
+
+.roster-player:hover {
+	opacity: 50%;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	transition: all 0.3s ease;
+}
+
+.roster-player-header {
+	font-size: small;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.roster-title {
+	margin-bottom: 0.3rem;
+}

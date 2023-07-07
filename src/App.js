@@ -1,8 +1,8 @@
 import React from 'react';
-import SidebarWrapper from './components/Sidebar';
+import SidebarWrapper from './components/Sidebar/Sidebar';
 import useStore from './store';
-import Timeline from './components/Timeline/Timeline';
-import './CSSFiles/Timeline.css';
+import Timeline from "./components/Timeline/Timeline/Timeline";
+import "./CSSFiles/Timeline/Timeline.css";
 
 function App() {
   const { abilities } = useStore();
