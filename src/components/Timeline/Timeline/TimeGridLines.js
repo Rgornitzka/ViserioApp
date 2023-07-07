@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../CSSFiles/TimeGridLines.css';
+import "../../../CSSFiles/Timeline/TimeGridLines.css";
 
 /**
  * Component representing the grid lines in the time grid.

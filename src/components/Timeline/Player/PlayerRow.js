@@ -1,9 +1,9 @@
 import React from "react";
-import CLASSCOLORS from "../../config/ClassColors";
+import CLASSCOLORS from "../../../config/ClassColors";
 import AbilityRow from "./AbilityRow";
-import "../../CSSFiles/PlayerRow.css";
+import "../../../CSSFiles/Timeline/PlayerRow.css";
 
-function PlayerRow({ player, pixelsPerSecond }) {
+function PlayerRow({ player, pixelsPerSecond, style }) {
 	const alpha = 0.5;
 	const playerColour = CLASSCOLORS[player.class.toUpperCase()];
 	const [red, green, blue] = playerColour;
@@ -14,7 +14,7 @@ function PlayerRow({ player, pixelsPerSecond }) {
 		: [];
 
 	return (
-		<div className="playerRow" style={{ backgroundColor: rgbaColor }}>
+		<div className="playerRow" style={{ ...style }}>
 			<h3 className="playerName">{player.name}</h3>
 			{uniqueAbilities.map((abilityName, index) => {
 				const abilities = player.selectedAbilities.filter(

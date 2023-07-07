@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import abilities from "./config/Abilities";
+import bosses from "./config/Bosses";
 
 const useStore = create((set) => ({
 	abilities,
@@ -8,6 +9,9 @@ const useStore = create((set) => ({
 	currentTime: 0,
 	players: [],
 	roster: [],
+	bosses,
+	selectedBossAbilities: [],
+	bossAbilities: [],
 	addIcon: (icon) =>
 		set((state) => ({
 			selectedIcons: [
@@ -57,12 +61,14 @@ const useStore = create((set) => ({
 					const selectedAbilities = Array.isArray(player.selectedAbilities)
 						? player.selectedAbilities
 						: [];
+					// Add the new ability to the list and sort it based on the cooldown
+					const updatedAbilities = [
+						...selectedAbilities,
+						{ ...ability, time: state.currentTime },
+					].sort((a, b) => a.cooldown - b.cooldown); // assuming 'cooldown' is a property in your ability object
 					return {
 						...player,
-						selectedAbilities: [
-							...selectedAbilities,
-							{ ...ability, time: state.currentTime },
-						],
+						selectedAbilities: updatedAbilities,
 					};
 				}
 				return player;
@@ -87,6 +93,34 @@ const useStore = create((set) => ({
 			return { ...state, players: updatedPlayers };
 		});
 	},
+	addBossAbility: (bossAbility, times = []) =>
+		set((state) => ({
+			bossAbilities: [
+				...state.bossAbilities,
+				...times.map((time) => ({ ...bossAbility, time })),
+			],
+		})),
+	toggleBossAbility: (bossAbility, times = []) =>
+		set((state) => {
+			const abilityExists = state.bossAbilities.some(
+				(ability) => ability.name === bossAbility.name
+			);
+
+			if (abilityExists) {
+				return {
+					bossAbilities: state.bossAbilities.filter(
+						(ability) => ability.name !== bossAbility.name
+					),
+				};
+			} else {
+				return {
+					bossAbilities: [
+						...state.bossAbilities,
+						...times.map((time) => ({ ...bossAbility, time })),
+					],
+				};
+			}
+		}),
 }));
 
 const generateAbilities = (playerClass, playerSpec) => {

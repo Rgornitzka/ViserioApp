@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../CSSFiles/TimeIndicatorBar.css';
+import "../../../CSSFiles/Timeline/TimeIndicatorBar.css";
 import TimeIndicatorLabel from './TimeIndicatorLabel';
 
 /**

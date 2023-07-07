@@ -1,0 +1,22 @@
+.sidebar-boss-abilities {
+    background-color: #000000;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+}
+
+.phase {
+    padding-left: 1rem;
+    text-align: center;
+
+}
+
+.phase-title {
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.abilities {
+    display: flex;
+    flex-wrap: wrap;
+}
