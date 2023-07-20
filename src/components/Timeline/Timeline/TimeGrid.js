@@ -6,6 +6,8 @@ import TimeGridLines from "./TimeGridLines";
 import PlayerRow from "../Player/PlayerRow";
 import CLASSCOLORS from "../../../config/ClassColors";
 import BossAbilityRow from "../Boss/BossAbilityRow";
+import { useTimeline } from "./Timeline";
+
 
 
 function getRGBAColor(playerClass, alpha = 0.2) {
@@ -14,11 +16,13 @@ function getRGBAColor(playerClass, alpha = 0.2) {
 	return `rgba(${red}, ${green}, ${blue}, ${alpha})`; 
 }
 
-function TimeGrid({ panelRef }) {
+function TimeGrid() {
+	const { panelRef } = useTimeline();
 	const { fightDurationInSeconds, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
 	const bossAbilities = useStore((state) => state.bossAbilities);
+	
 
 	const handleMouseMove = (e) => {
 		const rect = panelRef.current.getBoundingClientRect();

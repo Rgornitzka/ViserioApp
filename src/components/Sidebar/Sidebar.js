@@ -10,6 +10,7 @@ import Bosses from "../../config/Bosses";
 import "../../CSSFiles/Sidebar/Sidebar.css";
 import "../../CSSFiles/Sidebar/NewPlayerDropdown.css";
 import { useAbilities } from "../AbilitiesContext";
+import { useTimeline } from "../Timeline/Timeline/Timeline";
 
 function Sidebar() {
 	const { abilities, setAbilities } = useAbilities();
