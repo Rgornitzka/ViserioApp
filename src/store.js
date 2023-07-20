@@ -65,8 +65,8 @@ const useStore = create((set) => ({
 					// Add the new ability to the list and sort it based on the cooldown
 					const updatedAbilities = [
 						...selectedAbilities,
-						{ ...ability, time: 0 }, 
-					].sort((a, b) => a.cooldown - b.cooldown);
+						{ ...ability }, 
+					];
 					return {
 						...player,
 						selectedAbilities: updatedAbilities,

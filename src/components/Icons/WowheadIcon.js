@@ -28,27 +28,21 @@ function WowheadIcon({
 
 	const handleDragStart = (_, info) => {
 		setIsDragging(true);
-		setInitialPosition(info.point.x); // Set initial position based on the mouse's position
+		setInitialPosition(info.point.x); 
 		controls.start(info, { snapToCursor: true });
 	};
 
 	const handleDragEnd = (_, info) => {
 		setIsDragging(false);
-		const timeChangePixel = info.point.x - initialPosition; // Calculate position relative to initial position
+		const timeChangePixel = info.point.x - initialPosition; 
 		const timeChangeSecond = Math.round(timeChangePixel / pixelsPerSecond);
-		setLeftPosition(timeChangeSecond); // Calculate global position based on initial leftPosition
+		setLeftPosition(timeChangeSecond); 
 		const timeSeconds = timeInSeconds(durationPosition);
 		setTime(timeSeconds);
 		const newAbilities = abilities.map((ability) => {
-			//console.log("timeseconds ", timeSeconds);
-			//console.log("time ", time);
-			console.log('');
-			console.log('time ' + time);
-			console.log("ability.time " + ability.time);
 			if (
 				ability.name === name &&
-				ability.player.name === player &&
-				ability.time === time
+				ability.player.name === player 
 				//ability.time === time
 			) {
 				return {
@@ -62,7 +56,7 @@ function WowheadIcon({
 	};
 
 	useEffect(() => {
-		console.log("final time " + time);
+		//console.log("final time " + time);
 	}, [time]);
 
 	return (

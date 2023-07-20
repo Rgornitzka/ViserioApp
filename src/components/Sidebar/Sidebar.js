@@ -16,21 +16,44 @@ function Sidebar() {
 	const { players, addAbilityToPlayer, addBossAbility, removePlayer } =
 		useStore();
 
-	const handleAbilityClick = (ability, player, time) => {
-		const latestAbilityPosition = Math.max(
+	const calculateLatestAbilityPosition = (ability, player) => {
+		return Math.max(
 			...abilities
-				.filter((a) => a.name === ability.name && a.player === player)
-				.map((a) => a.time),
-			0
-		); 
-		const newPosition = latestAbilityPosition + 60;
+				.filter((a) => a.name === ability.name && a.player.name === player.name)
+				.map((a) => {
+					let parts = a.time.split(":");
+					let minutes = parseInt(parts[0], 10);
+					let seconds = parseInt(parts[1], 10);
+					return minutes * 60 + seconds;
+				}),
+			null
+		);
+	};
+
+	const calculateNewAbilityTimer = (latestAbilityPosition, abilityCooldown) => {
+		let newAbilityTimer = timeInSeconds(0);
+		if (latestAbilityPosition !== null) {
+			newAbilityTimer = timeInSeconds(latestAbilityPosition + abilityCooldown);
+		}
+		return newAbilityTimer;
+	};
+
+	const handleAbilityClick = (ability, player) => {
+		const latestAbilityPosition = calculateLatestAbilityPosition(
+			ability,
+			player
+		);
+		const newAbilityTimer = calculateNewAbilityTimer(
+			latestAbilityPosition,
+			ability.cooldown
+		);
 
 		addAbilityToPlayer(ability, player.name);
 
 		const newAbility = {
 			...ability,
 			player: player,
-			time: newPosition,
+			time: newAbilityTimer,
 		};
 		setAbilities((prevAbilities) => [...prevAbilities, newAbility]);
 	};
@@ -56,6 +79,8 @@ function Sidebar() {
 		const [red, green, blue] = playerColor;
 		const rgbaColor = `rgba(${red}, ${green}, ${blue}, 0.2)`;
 
+		const iconGap = 500;
+
 		return (
 			<div
 				key={player.name}
@@ -74,12 +99,13 @@ function Sidebar() {
 						<WowheadIcon
 							key={index}
 							name={ability.name}
-							icon = {ability.icon}
+							icon={ability.icon}
 							alt={ability.name}
 							size={"2rem"}
 							onClick={() => handleAbilityClick(ability, player)}
 							className="playerAbilityIcon"
 							player={player.name}
+							style={{ maginLeft: iconGap }}
 						/>
 					))}
 				</div>
@@ -108,3 +134,10 @@ function Sidebar() {
 }
 
 export default Sidebar;
+
+function timeInSeconds(duration) {
+	let date = new Date(null);
+	date.setSeconds(duration);
+	let timeString = date.toISOString().substr(14, 5);
+	return timeString;
+}

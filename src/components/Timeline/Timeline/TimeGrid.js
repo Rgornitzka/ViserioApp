@@ -7,11 +7,11 @@ import PlayerRow from "../Player/PlayerRow";
 import CLASSCOLORS from "../../../config/ClassColors";
 import BossAbilityRow from "../Boss/BossAbilityRow";
 
-// Auxiliary method for generating the RGBA color
+
 function getRGBAColor(playerClass, alpha = 0.2) {
-	const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; // Get player's class color
-	const [red, green, blue] = playerColour; // Destructure the RGB values
-	return `rgba(${red}, ${green}, ${blue}, ${alpha})`; // Construct the RGBA color value
+	const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; 
+	const [red, green, blue] = playerColour; 
+	return `rgba(${red}, ${green}, ${blue}, ${alpha})`; 
 }
 
 function TimeGrid({ panelRef }) {
