@@ -13,6 +13,11 @@ const useStore = create((set) => ({
 	selectedBossAbilities: [],
 	bossAbilities: [],
 	positionTimes: {},
+	panelRef: null,
+	panelWidth: 0,
+	setPanelRef: (ref) => set(() => ({ panelRef: ref })),
+	setPanelWidth: (width) => set(() => ({ panelWidth: width })),
+
 	addIcon: (icon) =>
 		set((state) => ({
 			selectedIcons: [
@@ -63,10 +68,7 @@ const useStore = create((set) => ({
 						? player.selectedAbilities
 						: [];
 					// Add the new ability to the list and sort it based on the cooldown
-					const updatedAbilities = [
-						...selectedAbilities,
-						{ ...ability }, 
-					];
+					const updatedAbilities = [...selectedAbilities, { ...ability }];
 					return {
 						...player,
 						selectedAbilities: updatedAbilities,

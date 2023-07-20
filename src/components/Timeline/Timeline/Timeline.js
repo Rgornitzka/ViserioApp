@@ -2,10 +2,10 @@ import React, {
 	createContext,
 	useContext,
 	useEffect,
-	useState,
 	useRef,
 } from "react";
 import TimeGrid from "./TimeGrid";
+import useStore from "../../../store";
 import "../../../CSSFiles/Timeline/Timeline.css";
 
 // Create the context
@@ -24,20 +24,22 @@ export function useTimeline() {
  * Component representing a timeline.
  */
 function Timeline() {
-	const panelRef = useRef(null);
-	const [panelWidth, setPanelWidth] = useState(0);
+	const { setPanelRef, setPanelWidth } = useStore();
+  const panelRef = useRef(null);
+
 
 	// Get panel width when it is available
 	useEffect(() => {
 		if (panelRef.current) {
+			setPanelRef(panelRef.current);
 			setPanelWidth(panelRef.current.offsetWidth);
 		}
-    console.log("panelWidth", panelWidth);
 	}, [panelRef]);
 
 	const value = {
 		panelRef,
-		panelWidth,
+		setPanelRef,
+		setPanelWidth,
 	};
 
 	return (

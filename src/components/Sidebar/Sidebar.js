@@ -14,8 +14,10 @@ import { useTimeline } from "../Timeline/Timeline/Timeline";
 
 function Sidebar() {
 	const { abilities, setAbilities } = useAbilities();
-	const { players, addAbilityToPlayer, addBossAbility, removePlayer } =
+	const { players, addAbilityToPlayer, addBossAbility, removePlayer, fightDurationInSeconds} =
 		useStore();
+	const { panelRef, panelWidth } = useStore();
+	const pixelsPerSecond = ( panelRef?.current?.offsetWidth ||0 ) / fightDurationInSeconds;
 
 	const calculateLatestAbilityPosition = (ability, player) => {
 		return Math.max(
