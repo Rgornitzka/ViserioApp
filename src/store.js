@@ -4,7 +4,7 @@ import bosses from "./config/Bosses";
 
 const useStore = create((set) => ({
 	abilities,
-	duration: 60 * 10,
+	fightDurationInSeconds: 60 * 10,
 	selectedIcons: [],
 	currentTime: 0,
 	players: [],
@@ -12,6 +12,7 @@ const useStore = create((set) => ({
 	bosses,
 	selectedBossAbilities: [],
 	bossAbilities: [],
+	positionTimes: {},
 	addIcon: (icon) =>
 		set((state) => ({
 			selectedIcons: [
@@ -64,8 +65,8 @@ const useStore = create((set) => ({
 					// Add the new ability to the list and sort it based on the cooldown
 					const updatedAbilities = [
 						...selectedAbilities,
-						{ ...ability, time: state.currentTime },
-					].sort((a, b) => a.cooldown - b.cooldown); // assuming 'cooldown' is a property in your ability object
+						{ ...ability, time: 0 }, 
+					].sort((a, b) => a.cooldown - b.cooldown);
 					return {
 						...player,
 						selectedAbilities: updatedAbilities,

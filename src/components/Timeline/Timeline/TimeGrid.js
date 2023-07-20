@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useStore from "../../../store";
 import "../../../CSSFiles/Timeline/TimeGrid.css";
 import TimeIndicatorBar from "./TimeIndicatorBar";
@@ -15,7 +15,7 @@ function getRGBAColor(playerClass, alpha = 0.2) {
 }
 
 function TimeGrid({ panelRef }) {
-	const { duration, players } = useStore((state) => state);
+	const { fightDurationInSeconds, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
 	const bossAbilities = useStore((state) => state.bossAbilities);
@@ -24,11 +24,18 @@ function TimeGrid({ panelRef }) {
 		const rect = panelRef.current.getBoundingClientRect();
 		setLeftPosition(e.clientX - rect.left);
 		const positionPercentage = (e.clientX - rect.left) / rect.width;
-		setDurationPosition(positionPercentage * duration);
+		setDurationPosition(positionPercentage * fightDurationInSeconds);
 	};
 
+	useEffect(() => {
+		if (panelRef.current) {
+			setLeftPosition(panelRef.current.offsetLeft);
+		}
+		console.log('leftpos', {setLeftPosition});
+	}, [panelRef]);
+
 	const pixelsPerSecond = panelRef.current
-		? panelRef.current.offsetWidth / duration
+		? panelRef.current.offsetWidth / fightDurationInSeconds
 		: 0;
 
 	return (
@@ -53,7 +60,7 @@ function TimeGrid({ panelRef }) {
 					}
 				)}
 			</div>
-			<TimeGridLines duration={duration} />
+			<TimeGridLines fightDurationInSeconds={fightDurationInSeconds} />
 			<TimeIndicatorBar
 				leftPosition={leftPosition}
 				durationPosition={durationPosition}
@@ -65,6 +72,9 @@ function TimeGrid({ panelRef }) {
 						key={index}
 						player={player}
 						pixelsPerSecond={pixelsPerSecond}
+						durationPosition={durationPosition}
+						leftPosition={leftPosition}
+						setLeftPosition={setLeftPosition}
 						style={{ backgroundColor: rgbaColor }}
 					/>
 				);

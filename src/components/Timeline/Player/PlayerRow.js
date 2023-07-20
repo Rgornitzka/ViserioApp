@@ -3,7 +3,14 @@ import CLASSCOLORS from "../../../config/ClassColors";
 import AbilityRow from "./AbilityRow";
 import "../../../CSSFiles/Timeline/PlayerRow.css";
 
-function PlayerRow({ player, pixelsPerSecond, style }) {
+function PlayerRow({
+	player,
+	pixelsPerSecond,
+	style,
+	durationPosition,
+	leftPosition,
+	setLeftPosition,
+}) {
 	const alpha = 0.5;
 	const playerColour = CLASSCOLORS[player.class.toUpperCase()];
 	const [red, green, blue] = playerColour;
@@ -24,8 +31,12 @@ function PlayerRow({ player, pixelsPerSecond, style }) {
 					<AbilityRow
 						key={index}
 						abilities={abilities}
+						durationPosition={durationPosition}
+						leftPosition={leftPosition}
+						setLeftPosition={setLeftPosition}
 						pixelsPerSecond={pixelsPerSecond}
 						backgroundColor={rgbaColor}
+						player={player}
 					/>
 				);
 			})}

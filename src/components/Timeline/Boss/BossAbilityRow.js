@@ -7,7 +7,7 @@ function BossAbilityRow({ ability, pixelsPerSecond }) {
 
 	return (
 		<div className="bossAbility" style={{ left: `${leftPosition}px` }}>
-			<WowheadIcon name={ability.icon} size="30px" />
+			<WowheadIcon icon={ability.icon} size="30px" />
 		</div>
 	);
 }

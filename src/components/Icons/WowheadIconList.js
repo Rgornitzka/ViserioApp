@@ -16,7 +16,8 @@ function WowheadIconList({ abilities, onIconClick }) {
         return (
           <WowheadIcon
             key={index}
-            name={ability.icon}
+            name={ability.name}
+            icon = {ability.icon}
             alt={ability.name}
             onClick={() => onIconClick(ability)}
           />

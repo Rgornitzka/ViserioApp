@@ -1,40 +1,96 @@
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, useDragControls } from "framer-motion";
+import { useAbilities } from "../AbilitiesContext";
 
 function WowheadIcon({
 	name,
+	icon,
+	player,
 	className,
 	onClick,
 	size,
 	drag,
 	constraintsRef,
 	pixelsPerSecond,
+	durationPosition,
+	setLeftPosition
 }) {
 	// eslint-disable-next-line
 	const [isDragging, setIsDragging] = useState(false);
-	const handleDragStart = () => setIsDragging(true);
-	const handleDragEnd = () => setIsDragging(false);
+	const [initialPosition, setInitialPosition] = useState(0);
+	const [time, setTime] = useState(false);
+	const { abilities, setAbilities } = useAbilities();
+	const controls = useDragControls();
+
+	function startDrag(event) {
+		controls.start(event, { snapToCursor: true });
+	}
+
+	const handleDragStart = (_, info) => {
+		setIsDragging(true);
+		setInitialPosition(info.point.x); // Set initial position based on the mouse's position
+		controls.start(info, { snapToCursor: true });
+	};
+
+	const handleDragEnd = (_, info) => {
+		setIsDragging(false);
+		const timeChangePixel = info.point.x - initialPosition; // Calculate position relative to initial position
+		const timeChangeSecond = Math.round(timeChangePixel / pixelsPerSecond);
+		setLeftPosition(timeChangeSecond); // Calculate global position based on initial leftPosition
+		const timeSeconds = timeInSeconds(durationPosition);
+		setTime(timeSeconds);
+		const newAbilities = abilities.map((ability) => {
+			//console.log("timeseconds ", timeSeconds);
+			//console.log("time ", time);
+			console.log('');
+			console.log('time ' + time);
+			console.log("ability.time " + ability.time);
+			if (
+				ability.name === name &&
+				ability.player.name === player &&
+				ability.time === time
+				//ability.time === time
+			) {
+				return {
+					...ability,
+					time: timeSeconds,
+				};
+			}
+			return ability;
+		});
+		setAbilities(newAbilities);
+	};
+
+	useEffect(() => {
+		console.log("final time " + time);
+	}, [time]);
 
 	return (
 		<motion.img
-			src={`https://wow.zamimg.com/images/wow/icons/medium/${name}.jpg`}
+			src={`https://wow.zamimg.com/images/wow/icons/medium/${icon}.jpg`}
 			style={{ width: size }}
 			className={className}
 			alt={name}
 			onClick={onClick}
 			onDragStart={handleDragStart}
+			onPointerDown = {startDrag}
 			drag={drag ? "x" : false}
+			dragControls={controls}
 			dragElastic={0}
 			dragMomentum={false}
 			dragConstraints={constraintsRef}
 			whileHover={{ scale: 1.2 }}
 			transition={{ type: "spring", stiffness: 1000, damping: 20 }}
-			onDragEnd={(event, info) => {
-				handleDragEnd();
-				// calculate new time based on pixelsPerSecond and save
-			}}
+			onDragEnd={handleDragEnd}
 		/>
 	);
 }
 
 export default WowheadIcon;
+
+function timeInSeconds(duration) {
+	let date = new Date(null);
+	date.setSeconds(duration);
+	let timeString = date.toISOString().substr(14, 5);
+	return timeString;
+}

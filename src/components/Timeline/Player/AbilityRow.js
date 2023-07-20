@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import WowheadIcon from "../../Icons/WowheadIcon";
 import "../../../CSSFiles/Timeline/AbilityRow.css";
 
-function AbilityRow({ abilities, pixelsPerSecond }) {
+function AbilityRow({ abilities, pixelsPerSecond, durationPosition, leftPosition, setLeftPosition, player}) {
 	const constraintsRef = useRef(null);
 
 	// Use state to store the current position of the mouse
@@ -36,14 +36,18 @@ function AbilityRow({ abilities, pixelsPerSecond }) {
 			{abilities.map((ability, index) => (
 				<WowheadIcon
 					key={index}
-					name={ability.icon}
-					alt={ability.name}
+					name={ability.name}
+					icon={ability.icon}
+					player={player.name}
 					size="30px"
 					constraintsRef={constraintsRef}
 					mousePosition={mousePosition}
 					ability={ability}
 					pixelsPerSecond={pixelsPerSecond}
 					drag={true}
+					leftPosition={leftPosition}
+					durationPosition={durationPosition}
+					setLeftPosition={setLeftPosition}
 				/>
 			))}
 		</div>
