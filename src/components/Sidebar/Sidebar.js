@@ -104,7 +104,7 @@ function Sidebar() {
 							name={ability.name}
 							icon={ability.icon}
 							alt={ability.name}
-							size={"2rem"}
+							size={"1.5rem"}
 							onClick={() => handleAbilityClick(ability, player)}
 							className="playerAbilityIcon"
 							player={player.name}

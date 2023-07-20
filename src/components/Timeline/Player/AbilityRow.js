@@ -39,7 +39,7 @@ function AbilityRow({ abilities, pixelsPerSecond, durationPosition, leftPosition
 					name={ability.name}
 					icon={ability.icon}
 					player={player.name}
-					size="1rem"
+					size="1.5rem"
 					constraintsRef={constraintsRef}
 					mousePosition={mousePosition}
 					ability={ability}
