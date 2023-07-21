@@ -16,7 +16,6 @@ function SidebarBossAbilities({ boss }) {
 	return (
 		<div className="sidebar-boss-abilities">
 			{" "}
-			{/* Apply a CSS class name to the outermost div */}
 			{phases.map((phase, phaseIndex) => (
 				<div key={phaseIndex} className="phase">
 					<div className="phase-title">
@@ -29,6 +28,7 @@ function SidebarBossAbilities({ boss }) {
 								name={ability.name}
 								icon={ability.icon}
 								alt={ability.name}
+								drag={false}
 								size={"1.5rem"}
 								onClick={() => toggleBossAbility(ability, ability.timers)}
 							/>
