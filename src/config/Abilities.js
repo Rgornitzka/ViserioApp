@@ -13,7 +13,7 @@ const abilities = {
       .setIcon('inv_shield_06'),
     
       new Ability()
-      .setCooldown(5940)
+      .setCooldown(10000)
       .setDuration()
       .setName('Healthstone')
       .setShortName()

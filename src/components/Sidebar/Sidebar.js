@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import useStore from "../../store";
 import NewPlayerInput from "./NewPlayerInput";
 import RosterList from "./RosterList";
@@ -10,14 +10,21 @@ import Bosses from "../../config/Bosses";
 import "../../CSSFiles/Sidebar/Sidebar.css";
 import "../../CSSFiles/Sidebar/NewPlayerDropdown.css";
 import { useAbilities } from "../AbilitiesContext";
-import { useTimeline } from "../Timeline/Timeline/Timeline";
+import { TimelineContext } from "../../App"; // Make sure this path is correct
 
 function Sidebar() {
 	const { abilities, setAbilities } = useAbilities();
-	const { players, addAbilityToPlayer, addBossAbility, removePlayer, fightDurationInSeconds} =
-		useStore();
-	const { panelRef, panelWidth } = useStore();
-	const pixelsPerSecond = ( panelRef?.current?.offsetWidth ||0 ) / fightDurationInSeconds;
+	const {
+		players,
+		addAbilityToPlayer,
+		addBossAbility,
+		removePlayer,
+		fightDurationInSeconds,
+	} = useStore();
+	const { panelRef, panelWidth } = useContext(TimelineContext);
+
+	const pixelsPerSecond =
+		(panelRef?.current?.offsetWidth || 0) / fightDurationInSeconds;
 
 	const calculateLatestAbilityPosition = (ability, player) => {
 		return Math.max(
@@ -25,6 +32,8 @@ function Sidebar() {
 				.filter((a) => a.name === ability.name && a.player.name === player.name)
 				.map((a) => {
 					let parts = a.time.split(":");
+					console.log(a.time);
+					console.log(ability.time);
 					let minutes = parseInt(parts[0], 10);
 					let seconds = parseInt(parts[1], 10);
 					return minutes * 60 + seconds;

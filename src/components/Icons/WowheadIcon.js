@@ -13,7 +13,7 @@ function WowheadIcon({
 	constraintsRef,
 	pixelsPerSecond,
 	durationPosition,
-	setLeftPosition
+	setLeftPosition,
 }) {
 	// eslint-disable-next-line
 	const [isDragging, setIsDragging] = useState(false);
@@ -28,21 +28,21 @@ function WowheadIcon({
 
 	const handleDragStart = (_, info) => {
 		setIsDragging(true);
-		setInitialPosition(info.point.x); 
+		setInitialPosition(info.point.x);
 		controls.start(info, { snapToCursor: true });
 	};
 
 	const handleDragEnd = (_, info) => {
 		setIsDragging(false);
-		const timeChangePixel = info.point.x - initialPosition; 
+		const timeChangePixel = info.point.x - initialPosition;
 		const timeChangeSecond = Math.round(timeChangePixel / pixelsPerSecond);
-		setLeftPosition(timeChangeSecond); 
+		setLeftPosition(timeChangeSecond);
 		const timeSeconds = timeInSeconds(durationPosition);
 		setTime(timeSeconds);
 		const newAbilities = abilities.map((ability) => {
 			if (
 				ability.name === name &&
-				ability.player.name === player 
+				ability.player.name === player
 				//ability.time === time
 			) {
 				return {
@@ -67,7 +67,7 @@ function WowheadIcon({
 			alt={name}
 			onClick={onClick}
 			onDragStart={handleDragStart}
-			onPointerDown = {startDrag}
+			onPointerDown={startDrag}
 			drag={drag ? "x" : false}
 			dragControls={controls}
 			dragElastic={0}

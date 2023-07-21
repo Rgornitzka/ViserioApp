@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import useStore from "../../../store";
 import "../../../CSSFiles/Timeline/TimeGrid.css";
 import TimeIndicatorBar from "./TimeIndicatorBar";
@@ -6,23 +6,20 @@ import TimeGridLines from "./TimeGridLines";
 import PlayerRow from "../Player/PlayerRow";
 import CLASSCOLORS from "../../../config/ClassColors";
 import BossAbilityRow from "../Boss/BossAbilityRow";
-import { useTimeline } from "./Timeline";
-
-
+import { TimelineContext } from "../../../App";
 
 function getRGBAColor(playerClass, alpha = 0.2) {
-	const playerColour = CLASSCOLORS[playerClass.toUpperCase()]; 
-	const [red, green, blue] = playerColour; 
-	return `rgba(${red}, ${green}, ${blue}, ${alpha})`; 
+	const playerColour = CLASSCOLORS[playerClass.toUpperCase()];
+	const [red, green, blue] = playerColour;
+	return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
 }
 
 function TimeGrid() {
-	const { panelRef } = useTimeline();
+	const { panelRef, panelWidth } = useContext(TimelineContext);
 	const { fightDurationInSeconds, players } = useStore((state) => state);
 	const [leftPosition, setLeftPosition] = useState(0);
 	const [durationPosition, setDurationPosition] = useState(0);
 	const bossAbilities = useStore((state) => state.bossAbilities);
-	
 
 	const handleMouseMove = (e) => {
 		const rect = panelRef.current.getBoundingClientRect();
@@ -35,7 +32,6 @@ function TimeGrid() {
 		if (panelRef.current) {
 			setLeftPosition(panelRef.current.offsetLeft);
 		}
-		console.log('leftpos', {setLeftPosition});
 	}, [panelRef]);
 
 	const pixelsPerSecond = panelRef.current
