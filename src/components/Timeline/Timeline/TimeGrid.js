@@ -37,7 +37,7 @@ function TimeGrid() {
 	const pixelsPerSecond = panelRef.current
 		? panelRef.current.offsetWidth / fightDurationInSeconds
 		: 0;
-
+	
 	return (
 		<div className="timeGrid" onMouseMove={handleMouseMove}>
 			<div className="bossAbilityWrapper">

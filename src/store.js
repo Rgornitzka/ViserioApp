@@ -59,7 +59,7 @@ const useStore = create((set) => ({
 			}
 			return state;
 		}),
-	addAbilityToPlayer: (ability, playerName) =>
+	addAbilityToPlayer: (ability, playerName, leftPosition) =>
 		set((state) => {
 			const updatedPlayers = state.players.map((player) => {
 				if (player.name === playerName) {
@@ -68,7 +68,10 @@ const useStore = create((set) => ({
 						? player.selectedAbilities
 						: [];
 					// Add the new ability to the list and sort it based on the cooldown
-					const updatedAbilities = [...selectedAbilities, { ...ability }];
+					const updatedAbilities = [
+						...selectedAbilities,
+						{ ...ability, leftPosition },
+					];
 					return {
 						...player,
 						selectedAbilities: updatedAbilities,

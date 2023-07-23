@@ -34,6 +34,7 @@ function AbilityRow({ abilities, pixelsPerSecond, durationPosition, leftPosition
 			onMouseMove={handleMouseMove}
 		>
 			{abilities.map((ability, index) => (
+				<div className = "ability">
 				<WowheadIcon
 					key={index}
 					name={ability.name}
@@ -49,6 +50,7 @@ function AbilityRow({ abilities, pixelsPerSecond, durationPosition, leftPosition
 					durationPosition={durationPosition}
 					setLeftPosition={setLeftPosition}
 				/>
+				</div>
 			))}
 		</div>
 	);

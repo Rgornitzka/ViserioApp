@@ -1,3 +1,7 @@
 .abilityRow {
-    
+    display: flex;
+}
+
+.ability {
+    position: relative;
 }

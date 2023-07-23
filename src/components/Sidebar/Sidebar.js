@@ -25,6 +25,7 @@ function Sidebar() {
 
 	const pixelsPerSecond =
 		(panelRef?.current?.offsetWidth || 0) / fightDurationInSeconds;
+	
 
 	const calculateLatestAbilityPosition = (ability, player) => {
 		return Math.max(
@@ -44,9 +45,9 @@ function Sidebar() {
 
 	const calculateNewAbilityTimer = (latestAbilityPosition, abilityCooldown) => {
 		let newAbilityTimer = timeInSeconds(0);
-		if (latestAbilityPosition !== null) {
-			newAbilityTimer = timeInSeconds(latestAbilityPosition + abilityCooldown);
-		}
+		//if (latestAbilityPosition !== 0) {
+		newAbilityTimer = timeInSeconds(latestAbilityPosition + abilityCooldown);
+		//}
 		return newAbilityTimer;
 	};
 
@@ -60,12 +61,15 @@ function Sidebar() {
 			ability.cooldown
 		);
 
-		addAbilityToPlayer(ability, player.name);
+		const abilityCooldownInPixels = ability.cooldown * pixelsPerSecond;
+
+		addAbilityToPlayer(ability, player.name, abilityCooldownInPixels);
 
 		const newAbility = {
 			...ability,
 			player: player,
 			time: newAbilityTimer,
+			leftPosition: abilityCooldownInPixels,
 		};
 		setAbilities((prevAbilities) => [...prevAbilities, newAbility]);
 	};
@@ -114,10 +118,11 @@ function Sidebar() {
 							icon={ability.icon}
 							alt={ability.name}
 							size={"1.5rem"}
+							drag={false}
 							onClick={() => handleAbilityClick(ability, player)}
 							className="playerAbilityIcon"
 							player={player.name}
-							style={{ maginLeft: iconGap }}
+							style={{ maginLeft: ability.leftPosition }}
 						/>
 					))}
 				</div>
